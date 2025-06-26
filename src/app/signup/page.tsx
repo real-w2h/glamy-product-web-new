@@ -13,7 +13,8 @@ import { signupSchema, type SignupData } from "@/shared/schema";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { Link, useLocation } from "wouter";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Eye, EyeOff, Mail, Lock, User, Phone, Briefcase } from "lucide-react";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 import OtpInput from "@/components/OtpInput";
@@ -28,7 +29,7 @@ export default function Signup() {
   const [otp, setOtp] = useState("");
   const [signupFormData, setSignupFormData] = useState<SignupData | null>(null);
   const [googleLoading, setGoogleLoading] = useState(false);
-  const [, navigate] = useLocation();
+  const router = useRouter();
 
   const form = useForm<SignupData>({
     resolver: zodResolver(signupSchema),
@@ -98,7 +99,7 @@ export default function Signup() {
           title: "Signup Successful",
           description: `Welcome, ${res.user.email}`,
         });
-        navigate("/");
+        router.push("/");
       } else {
         toast({
           title: "Error",
@@ -183,7 +184,7 @@ export default function Signup() {
 
   return (
     showOtpInput ? (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50  justify-center p-4">
+              <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-purple-200 justify-center p-4">
         <div className="flex flex-col items-center justify-center min-h-screen">
           <div className="w-full max-w-sm mb-6">
             {signupFormData && (
@@ -223,20 +224,20 @@ export default function Signup() {
         </div>
       </div>
     ) : (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-purple-200 flex items-center justify-center p-4">
         <div className="w-full max-w-lg">
           {/* Logo */}
           <div className="text-center mb-8">
             <Link href="/">
-                <div className="flex items-center justify-center mb-4">
-              <div className="flex items-center">
-              <img src="/logo.png" alt="Logo" className="w-40 h-20 rounded-lg object-cover" />
-            </div>
+              <div className="flex items-center justify-center mb-4">
+                <div className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  glame
+                </div>
               </div>
             </Link>
             <p className="text-gray-600">Start growing your beauty business today</p>
           </div>
-          <Card className="shadow-xl border-0">
+          <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
             <CardHeader className="space-y-1">
               <CardTitle className="text-2xl font-bold text-center">Create Account</CardTitle>
               <CardDescription className="text-center">
@@ -428,7 +429,7 @@ export default function Signup() {
                   <Button
                     type="submit"
                     size="lg"
-                    className="w-full gradient-primary text-white hover:shadow-lg transition-all h-12"
+                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-lg hover:shadow-xl transition-all h-12 font-semibold"
                     disabled={signupMutation.isPending}
                   >
                     {signupMutation.isPending ? "Creating Account..." : "Request OTP"}

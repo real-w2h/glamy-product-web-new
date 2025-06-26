@@ -12,7 +12,8 @@ import { loginSchema, type LoginData } from "@/shared/schema";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { Link, useLocation } from "wouter";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Eye, EyeOff, Mail, Lock, Phone } from "lucide-react";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
@@ -22,7 +23,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const { toast } = useToast();
   const [googleLoading, setGoogleLoading] = useState(false);
-  const [, navigate] = useLocation();
+  const router = useRouter();
 
   const form = useForm<LoginData>({
     resolver: zodResolver(loginSchema),
@@ -89,7 +90,7 @@ export default function Login() {
           title: "Login Successful",
           description: `Welcome, ${res.user.email}`,
         });
-        navigate("/");
+        router.push("/");
       } else {
         toast({
           title: "Error",
@@ -127,21 +128,21 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-purple-200 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/">
-          <div className="flex items-center justify-center mb-4">
-              <div className="flex items-center">
-              <img src="/logo.png" alt="Logo" className="w-40 h-20 rounded-lg object-cover" />
-            </div>
+            <div className="flex items-center justify-center mb-4">
+              <div className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                glame
               </div>
+            </div>
           </Link>
           <p className="text-gray-600">Welcome back to your beauty business</p>
         </div>
 
-        <Card className="shadow-xl border-0">
+        <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold text-center">Sign In</CardTitle>
             <CardDescription className="text-center">
@@ -265,7 +266,7 @@ export default function Login() {
                 <Button
                   type="submit"
                   size="lg"
-                  className="w-full gradient-primary text-white hover:shadow-lg transition-all h-12"
+                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-lg hover:shadow-xl transition-all h-12 font-semibold"
                   disabled={loginMutation.isPending}
                 >
                   {loginMutation.isPending ? "Signing In..." : "Sign In"}

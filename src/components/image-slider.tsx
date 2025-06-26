@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { Link } from "wouter";
+import Link from "next/link";
 
 // Using placeholder images - replace with your actual images
 const slide1 = { src: "/attached_assets/1_1750152529582.jpg" };

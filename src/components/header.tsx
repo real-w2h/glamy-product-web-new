@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import { Link } from "wouter";
+import Link from "next/link";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -20,10 +20,13 @@ export default function Header() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <div className="flex items-center">
-              <img src="/logo.png" alt="Logo" className="w-40 h-20 rounded-lg object-cover" />
-              {/* <span className="ml-2 text-2xl font-bold text-gray-900">Glame</span> */}
-            </div>
+            <Link href="/">
+              <div className="flex items-center cursor-pointer">
+                <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  glame
+                </div>
+              </div>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
@@ -73,7 +76,7 @@ export default function Header() {
               </Button>
             </Link> */}
             <Link href="/signup" >
-            <Button className="gradient-primary text-white hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
+            <Button className="bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5">
               Start Free Trial
             </Button>
             </Link>
