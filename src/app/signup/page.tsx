@@ -47,7 +47,7 @@ export default function Signup() {
       const response = await apiRequest("POST", "/api/auth/signup", data);
       return response.json();
     },
-    onSuccess: (data: { success: boolean; token?: string; user?: any; message?: string }) => {
+    onSuccess: (data: { success: boolean; token?: string; user?: any; message?: string; generatedDomain?: string }) => {
       if (data.success && data.token && data.user) {
         localStorage.setItem("authToken", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
@@ -55,8 +55,12 @@ export default function Signup() {
           title: "Welcome to Glame!",
           description: "Your account has been created successfully.",
         });
-        // Redirect to dashboard
-        window.location.href = "/dashboard";
+        // Use generatedDomain and token from the API response
+        if (data.generatedDomain && data.token) {
+          window.location.href = 'https://' + data.generatedDomain + '/login?token=' + data.token;
+        } else {
+          window.location.href = "/dashboard";
+        }
       } else {
         toast({
           title: "Signup Failed",
@@ -112,6 +116,7 @@ export default function Signup() {
   
 
   async function sendOtpToEmail(data: SignupData) {
+    console.log('Sending OTP to email:', data.email);
     try {
       const response = await fetch(`/api/auth/account/signup/otp?email=${data.email}`, {
         method: 'GET',
@@ -145,7 +150,7 @@ export default function Signup() {
   }
   
 
-  const handleOtpSubmit = (e: React.FormEvent) => {
+  const handleOtpSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (otp.length !== 6) {
       toast({
@@ -155,9 +160,45 @@ export default function Signup() {
       });
       return;
     }
-    // Combine OTP with signupFormData and submit
     if (signupFormData) {
-      signupMutation.mutate({ ...signupFormData, otp } as SignupData & { otp: string });
+      try {
+        console.log("Signup form data:", signupFormData);
+        console.log("OTP entered:", otp);
+
+        const payload = {
+          name: signupFormData.name,
+          email: signupFormData.email,
+          password: signupFormData.password,
+          accountType: signupFormData.businessType,
+          otp: otp,
+        };
+        const response = await fetch('/api/auth/account/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+        const data = await response.json();
+        console.log("Signup API response aarha h :", data);
+       
+          toast({
+            title: "Account Created",
+            description: "Your account has been created successfully.",
+          });
+          if (data.generatedDomain && data.token) {
+            window.location.href = 'https://' + data.generatedDomain + '/login?token=' + data.token;
+          } else {
+            window.location.href = "/";
+          };
+         
+      } catch (error) {
+        toast({
+          title: "Error",
+          description: "Something went wrong. Please try again.",
+          variant: "destructive",
+        });
+      }
     }
   };
 

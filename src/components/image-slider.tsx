@@ -128,27 +128,30 @@ export default function ImageSlider() {
             <ChevronRight className="h-4 w-4" />
           </Button>
 
-          {/* Dots Indicator */}
-          <div className="flex justify-center mt-8 space-x-2">
-            {Array.from({ length: maxIndex + 1 }).map((_, index) => (
-              <button
-                key={index}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentIndex 
-                    ? "bg-primary scale-125 shadow-lg" 
-                    : "bg-gray-300 hover:bg-gray-400"
-                }`}
-                onClick={() => goToSlide(index)}
+          {/* Dots Indicator + Progress Bar Container */}
+          <div className="w-full max-w-md mx-auto flex flex-col items-center justify-center mt-4">
+            {/* Dots Indicator */}
+            <div className="flex space-x-2 mb-2">
+              {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+                <button
+                  key={index}
+                  className={`rounded-full border-2 border-white transition-all duration-300 focus:outline-none ${
+                    index === currentIndex
+                      ? "w-5 h-5 shadow-lg" // active dot
+                      : "w-3.5 h-3.5 bg-gray-300 hover:bg-gray-400" // inactive dot
+                  }`}
+                  style={index === currentIndex ? { background: '#C43AFF' } : {}}
+                  onClick={() => goToSlide(index)}
+                />
+              ))}
+            </div>
+            {/* Progress Bar */}
+            <div className="w-full bg-gray-200 rounded-full h-1">
+              <div 
+                className="rounded-full transition-all duration-300 h-1"
+                style={{ background: '#C43AFF', width: `${((currentIndex + 1) / (maxIndex + 1)) * 100}%` }}
               />
-            ))}
-          </div>
-
-          {/* Progress Bar */}
-          <div className="mt-4 w-full bg-gray-200 rounded-full h-1 max-w-md mx-auto">
-            <div 
-              className="bg-primary h-1 rounded-full transition-all duration-300"
-              style={{ width: `${((currentIndex + 1) / (maxIndex + 1)) * 100}%` }}
-            />
+            </div>
           </div>
         </div>
 
