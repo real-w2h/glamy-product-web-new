@@ -14,10 +14,10 @@ import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff, Mail, Lock, Phone } from "lucide-react";
-import { FaGoogle, FaFacebook } from "react-icons/fa";
+import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth, isFirebaseConfigured } from "@/lib/firebaseAuth";
+import { auth } from "@/lib/firebaseAuth";
+
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -65,79 +65,57 @@ export default function Login() {
     },
   });
 
-  const handleGoogleLogin = async () => {
-    if (!isFirebaseConfigured) {
-      toast({
-        title: "Firebase Not Configured",
-        description: "Please set up Firebase environment variables to use Google login.",
-        variant: "destructive",
-      });
-      return;
-    }
+ 
+  const onSubmit = (data: LoginData) => {
+    loginMutation.mutate(data);
+  };
 
+  async function handleGoogleLogin() {
+    setGoogleLoading(true);
     try {
-      setGoogleLoading(true);
       const provider = new GoogleAuthProvider();
       provider.setCustomParameters({
         prompt: "select_account"
       });
       const res = await signInWithPopup(auth, provider);
-      console.log(res);
       if (res.user.email) {
-        const Token = await res.user.getIdToken();
-        console.log("this is your token",Token);
+        const token = await res.user.getIdToken();
+        // You can store the token or use it as needed
         toast({
-          title: "Login Successful",
+          title: "Google Login Successful",
           description: `Welcome, ${res.user.email}`,
         });
+        // Redirect or further logic here
         router.push("/");
       } else {
         toast({
-          title: "Error",
+          title: "Login Failed",
           description: "Error while logging in with Google",
           variant: "destructive",
         });
       }
     } catch (error) {
-      console.log("Unexpectedly closing google popup causes this error", error);
       toast({
-        title: "Google Login Cancelled",
-        description: "Google login was cancelled or failed.",
+        title: "Google Login Error",
+        description: "Unexpectedly closing Google popup or other error.",
         variant: "destructive",
       });
+      console.log("Unexpectedly closing google popup causes this error", error);
     }
     setGoogleLoading(false);
-  };
-
-  const handleFacebookLogin = () => {
-    toast({
-      title: "Coming Soon",
-      description: "Facebook login will be available soon!",
-    });
-  };
-
-  const handlePhoneLogin = () => {
-    toast({
-      title: "Coming Soon",
-      description: "Phone login will be available soon!",
-    });
-  };
-
-  const onSubmit = (data: LoginData) => {
-    loginMutation.mutate(data);
-  };
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-purple-200 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-5">
           <Link href="/">
-            <div className="flex items-center justify-center mb-4">
-              <div className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                glame
-              </div>
+          <div className="flex items-center justify-center">
+              <div className="flex items-center">
+              <img src="/logo.png" alt="Logo" className="w-40 h-15 rounded-lg object-cover" />
             </div>
+              </div>
           </Link>
           <p className="text-gray-600">Welcome back to your beauty business</p>
         </div>
@@ -151,35 +129,16 @@ export default function Login() {
           </CardHeader>
           <CardContent className="space-y-6">
             {/* Social Login Buttons */}
-            <div className="space-y-3">
+            <div className="">
               <Button
                 variant="outline"
                 className="w-full h-12 border-gray-300 hover:bg-gray-50"
                 onClick={handleGoogleLogin}
                 disabled={googleLoading}
               >
-                <FaGoogle className="mr-3 h-4 w-4 text-red-500" />
+              <img src="/google.png" alt="Logo" className="mr-3 h-6 w-6 text-red-500" />
                 {googleLoading ? "Connecting..." : "Continue with Google"}
               </Button>
-              
-              <div className="grid grid-cols-2 gap-3">
-                <Button
-                  variant="outline"
-                  className="h-12 border-gray-300 hover:bg-gray-50"
-                  onClick={handleFacebookLogin}
-                >
-                  <FaFacebook className="mr-2 h-4 w-4 text-blue-600" />
-                  Facebook
-                </Button>
-                <Button
-                  variant="outline"
-                  className="h-12 border-gray-300 hover:bg-gray-50"
-                  onClick={handlePhoneLogin}
-                >
-                  <Phone className="mr-2 h-4 w-4" />
-                  Phone
-                </Button>
-              </div>
             </div>
 
             <div className="relative">
@@ -187,7 +146,7 @@ export default function Login() {
                 <Separator />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-white px-2 text-gray-500">Or continue with email</span>
+                <span className="bg-white px-14 text-gray-500">Or continue with email</span>
               </div>
             </div>
 
@@ -211,7 +170,7 @@ export default function Login() {
                           />
                         </div>
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-red-600" />
                     </FormItem>
                   )}
                 />
@@ -240,7 +199,7 @@ export default function Login() {
                           </button>
                         </div>
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-red-600" />
                     </FormItem>
                   )}
                 />

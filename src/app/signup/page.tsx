@@ -16,10 +16,9 @@ import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, Mail, Lock, User, Phone, Briefcase } from "lucide-react";
-import { FaGoogle, FaFacebook } from "react-icons/fa";
 import OtpInput from "@/components/OtpInput";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth, isFirebaseConfigured } from "@/lib/firebaseAuth";
+import { auth } from "@/lib/firebaseAuth";
 
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
@@ -75,62 +74,42 @@ export default function Signup() {
     },
   });
 
-  const handleGoogleSignup = async () => {
-    if (!isFirebaseConfigured) {
-      toast({
-        title: "Firebase Not Configured",
-        description: "Please set up Firebase environment variables to use Google signup.",
-        variant: "destructive",
-      });
-      return;
-    }
+  
 
+  async function handleGoogleLogin() {
+    setGoogleLoading(true);
     try {
-      setGoogleLoading(true);
       const provider = new GoogleAuthProvider();
       provider.setCustomParameters({
         prompt: "select_account"
       });
       const res = await signInWithPopup(auth, provider);
       if (res.user.email) {
-        const Token = await res.user.getIdToken();
-        console.log("this is your token", Token);
+        const token = await res.user.getIdToken();
         toast({
-          title: "Signup Successful",
+          title: "Google Login Successful",
           description: `Welcome, ${res.user.email}`,
         });
         router.push("/");
       } else {
         toast({
-          title: "Error",
-          description: "Error while signing up with Google",
+          title: "Login Failed",
+          description: "Error while logging in with Google",
           variant: "destructive",
         });
       }
     } catch (error) {
-      console.log("Unexpectedly closing google popup causes this error", error);
       toast({
-        title: "Google Signup Cancelled",
-        description: "Google signup was cancelled or failed.",
+        title: "Google Login Error",
+        description: "Unexpectedly closing Google popup or other error.",
         variant: "destructive",
       });
+      console.log("Unexpectedly closing google popup causes this error", error);
     }
     setGoogleLoading(false);
-  };
+  }
 
-  const handleFacebookSignup = () => {
-    toast({
-      title: "Coming Soon", 
-      description: "Facebook signup will be available soon!",
-    });
-  };
-
-  const handlePhoneSignup = () => {
-    toast({
-      title: "Coming Soon",
-      description: "Phone signup will be available soon!",
-    });
-  };
+  
 
   async function sendOtpToEmail(data: SignupData) {
     try {
@@ -229,10 +208,10 @@ export default function Signup() {
           {/* Logo */}
           <div className="text-center mb-8">
             <Link href="/">
-              <div className="flex items-center justify-center mb-4">
-                <div className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                  glame
-                </div>
+            <div className="flex items-center justify-center">
+              <div className="flex items-center">
+              <img src="/logo.png" alt="Logo" className="w-40 h-15 rounded-lg object-cover" />
+            </div>
               </div>
             </Link>
             <p className="text-gray-600">Start growing your beauty business today</p>
@@ -250,30 +229,13 @@ export default function Signup() {
                 <Button
                   variant="outline"
                   className="w-full h-12 border-gray-300 hover:bg-gray-50"
-                  onClick={handleGoogleSignup}
+                  onClick={handleGoogleLogin}
                   disabled={googleLoading}
                 >
-                  <FaGoogle className="mr-3 h-4 w-4 text-red-500" />
+                  <img src="/google.png" alt="Logo" className="mr-3 h-6 w-6 text-red-500" />
+
                   {googleLoading ? "Connecting..." : "Continue with Google"}
                 </Button>
-                <div className="grid grid-cols-2 gap-3">
-                  <Button
-                    variant="outline"
-                    className="h-12 border-gray-300 hover:bg-gray-50"
-                    onClick={handleFacebookSignup}
-                  >
-                    <FaFacebook className="mr-2 h-4 w-4 text-blue-600" />
-                    Facebook
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="h-12 border-gray-300 hover:bg-gray-50"
-                    onClick={handlePhoneSignup}
-                  >
-                    <Phone className="mr-2 h-4 w-4" />
-                    Phone
-                  </Button>
-                </div>
               </div>
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
@@ -302,7 +264,7 @@ export default function Signup() {
                             />
                           </div>
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="text-red-600" />
                       </FormItem>
                     )}
                   />
@@ -323,7 +285,7 @@ export default function Signup() {
                             />
                           </div>
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="text-red-600" />
                       </FormItem>
                     )}
                   />
@@ -352,7 +314,7 @@ export default function Signup() {
                             <SelectItem value="other">Other</SelectItem>
                           </SelectContent>
                         </Select>
-                        <FormMessage />
+                        <FormMessage className="text-red-600" />
                       </FormItem>
                     )}
                   />
@@ -380,7 +342,7 @@ export default function Signup() {
                             </button>
                           </div>
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="text-red-600" />
                       </FormItem>
                     )}
                   />
@@ -408,7 +370,7 @@ export default function Signup() {
                             </button>
                           </div>
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="text-red-600" />
                       </FormItem>
                     )}
                   />

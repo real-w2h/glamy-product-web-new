@@ -20,13 +20,10 @@ export default function Header() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href="/">
-              <div className="flex items-center cursor-pointer">
-                <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                  glame
-                </div>
-              </div>
-            </Link>
+            <div className="flex items-center">
+              <img src="/logo.png" alt="Logo" className="w-40 h-40 rounded-lg object-cover" />
+              {/* <span className="ml-2 text-2xl font-bold text-gray-900">Glame</span> */}
+            </div>
           </div>
 
           {/* Desktop Navigation */}
