@@ -13,7 +13,7 @@ export default function Services() {
       features: ["Appointment management", "Staff scheduling", "Customer profiles"],
       color: "from-purple-50 to-purple-100",
       borderColor: "border-purple-200",
-      iconBg: "from-primary to-purple-600",
+      iconBg: "hsl(262, 88%, 66%); to-purple-600",
       buttonColor: "bg-primary hover:bg-purple-700",
     },
     {
@@ -66,7 +66,7 @@ export default function Services() {
               transition={{ duration: 0.8, delay: index * 0.2 }}
               viewport={{ once: true }}
             >
-              <div className={`w-16 h-16 bg-gradient-to-r ${service.iconBg} rounded-xl flex items-center justify-center mb-6`}>
+              <div className={`w-16 h-16 bg-gradient-to-br ${service.iconBg} rounded-xl flex items-center justify-center mb-6`}>
                 <span className="text-white text-2xl">{service.icon}</span>
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">{service.title}</h3>

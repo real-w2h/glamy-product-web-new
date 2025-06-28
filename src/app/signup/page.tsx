@@ -15,7 +15,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff, Mail, Lock, User, Phone, Briefcase } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, User, Briefcase } from "lucide-react";
 import OtpInput from "@/components/OtpInput";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "@/lib/firebaseAuth";
@@ -55,7 +55,6 @@ export default function Signup() {
           title: "Welcome to Glame!",
           description: "Your account has been created successfully.",
         });
-        // Use generatedDomain and token from the API response
         if (data.generatedDomain && data.token) {
           window.location.href = 'https://' + data.generatedDomain + '/login?token=' + data.token;
         } else {
@@ -114,18 +113,14 @@ export default function Signup() {
   }
 
   
-
   async function sendOtpToEmail(data: SignupData) {
-    console.log('Sending OTP to email:', data.email);
     try {
       const response = await fetch(`/api/auth/account/signup/otp?email=${data.email}`, {
         method: 'GET',
       });
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
       const result = await response.json();
       console.log('OTP sent response:', result);
+      
       if (result.success) {
         setSignupFormData(data);
         setShowOtpInput(true);
@@ -136,19 +131,19 @@ export default function Signup() {
       } else {
         toast({
           title: "OTP Request Failed",
-          description: result.message || "Unable to send OTP. Please try again.",
+          description: result.message || result.error || "Unable to send OTP. Please try again.",
           variant: "destructive",
         });
       }
-    } catch {
+    } catch (error) {
+      console.error('Error sending OTP:', error);
       toast({
         title: "Error",
-        description: "Failed to send OTP. Please try again.",
+        description: error instanceof Error ? error.message : "Failed to send OTP. Please try again.",
         variant: "destructive",
       });
     }
   }
-  
 
   const handleOtpSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -181,7 +176,8 @@ export default function Signup() {
         });
         const data = await response.json();
         console.log("Signup API response aarha h :", data);
-       
+        
+        if (response.ok && data.success) {
           toast({
             title: "Account Created",
             description: "Your account has been created successfully.",
@@ -190,12 +186,20 @@ export default function Signup() {
             window.location.href = 'https://' + data.generatedDomain + '/login?token=' + data.token;
           } else {
             window.location.href = "/";
-          };
-         
+          }
+        } else {
+          // Show server error message
+          toast({
+            title: "Signup Failed",
+            description: data.message || data.error || "Unable to create account. Please try again.",
+            variant: "destructive",
+          });
+        }
       } catch (error) {
+        console.error('Error during signup:', error);
         toast({
           title: "Error",
-          description: "Something went wrong. Please try again.",
+          description: error instanceof Error ? error.message : "Something went wrong. Please try again.",
           variant: "destructive",
         });
       }
@@ -203,90 +207,92 @@ export default function Signup() {
   };
 
   return (
-    showOtpInput ? (
-              <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-purple-200 justify-center p-4">
-        <div className="flex flex-col items-center justify-center min-h-screen">
-          <div className="w-full max-w-sm mb-6">
-            {signupFormData && (
-              <div className="bg-white rounded-lg shadow p-4 mb-4">
-                <div className="flex justify-between items-center mb-2">
-                  <div className="font-semibold text-gray-800">Your Details</div>
-                  <button
-                    className="text-primary text-sm underline font-medium"
-                    onClick={e => {
-                      e.preventDefault();
-                      setShowOtpInput(false);
-                      if (signupFormData) {
-                        form.reset(signupFormData);
-                      }
-                    }}
-                  >
-                    Edit
-                  </button>
-                </div>
-                <div className="text-sm text-gray-700 space-y-1">
-                  <div><span className="font-medium">Name:</span> {signupFormData.name}</div>
-                  <div><span className="font-medium">Email:</span> {signupFormData.email}</div>
-                  {signupFormData.phone && <div><span className="font-medium">Phone:</span> {signupFormData.phone}</div>}
-                  {signupFormData.businessType && <div><span className="font-medium">Business Type:</span> {signupFormData.businessType.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase())}</div>}
-                </div>
-              </div>
-            )}
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-purple-200 flex items-center justify-center p-4">
+      <div className="w-full max-w-lg">
+        {/* Logo */}
+        <div className="text-center mb-8">
+          <Link href="/">
+          <div className="flex items-center justify-center">
+            <div className="flex items-center">
+            <img src="/logo.png" alt="Logo" className="w-40 h-15 rounded-lg object-cover" />
           </div>
-          <OtpInput
-            otp={otp}
-            setOtp={setOtp}
-            onSubmit={handleOtpSubmit}
-            loading={signupMutation.isPending}
-            label="Enter 6-digit OTP"
-            buttonText="Create Account"
-          />
-        </div>
-      </div>
-    ) : (
-      <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-purple-200 flex items-center justify-center p-4">
-        <div className="w-full max-w-lg">
-          {/* Logo */}
-          <div className="text-center mb-8">
-            <Link href="/">
-            <div className="flex items-center justify-center">
-              <div className="flex items-center">
-              <img src="/logo.png" alt="Logo" className="w-40 h-15 rounded-lg object-cover" />
             </div>
-              </div>
-            </Link>
-            <p className="text-gray-600">Start growing your beauty business today</p>
-          </div>
-          <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
-            <CardHeader className="space-y-1">
-              <CardTitle className="text-2xl font-bold text-center">Create Account</CardTitle>
-              <CardDescription className="text-center">
-                Join thousands of beauty professionals using Glame
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {/* Social Signup Buttons */}
-              <div className="space-y-3">
-                <Button
-                  variant="outline"
-                  className="w-full h-12 border-gray-300 hover:bg-gray-50"
-                  onClick={handleGoogleLogin}
-                  disabled={googleLoading}
-                >
-                  <img src="/google.png" alt="Logo" className="mr-3 h-6 w-6 text-red-500" />
-
-                  {googleLoading ? "Connecting..." : "Continue with Google"}
-                </Button>
-              </div>
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <Separator />
+          </Link>
+          <p className="text-gray-600">Start growing your beauty business today</p>
+        </div>
+        <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-2xl font-bold text-center">Create Account</CardTitle>
+            <CardDescription className="text-center">
+              Join thousands of beauty professionals using Glame
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {!showOtpInput && (
+              <>
+                <div className="space-y-3">
+                  <Button
+                    variant="outline"
+                    className="w-full h-12 border-gray-300 hover:bg-gray-50"
+                    onClick={handleGoogleLogin}
+                    disabled={googleLoading}
+                  >
+                    <img src="/google.png" alt="Logo" className="mr-3 h-6 w-6 text-red-500" />
+                    {googleLoading ? "Connecting..." : "Continue with Google"}
+                  </Button>
                 </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-white px-2 text-gray-500">Or continue with email</span>
+                <div className="relative">
+                  <div className="absolute inset-0 flex items-center">
+                    <Separator />
+                  </div>
+                  <div className="relative flex justify-center text-xs uppercase">
+                    <span className="bg-white px-2 text-gray-500">Or continue with email</span>
+                  </div>
                 </div>
-              </div>
-              {/* Signup Form */}
+              </>
+            )}
+            {/* Signup Form or OTP Section */}
+            {showOtpInput ? (
+              <>
+                {signupFormData && (
+                  <div className="mb-4">
+                    <Card className="bg-white rounded-lg shadow p-4 border border-gray-200">
+                      <div className="flex justify-between items-center mb-2">
+                        <div className="font-semibold text-gray-800">Your Details</div>
+                        <button
+                          className="text-primary text-sm underline font-medium"
+                          onClick={e => {
+                            e.preventDefault();
+                            setShowOtpInput(false);
+                            if (signupFormData) {
+                              form.reset(signupFormData);
+                            }
+                          }}
+                        >
+                          Edit
+                        </button>
+                      </div>
+                      <div className="text-sm text-gray-700 space-y-1">
+                        <div><span className="font-medium">Name:</span> {signupFormData.name}</div>
+                        <div><span className="font-medium">Email:</span> {signupFormData.email}</div>
+                        {signupFormData.phone && <div><span className="font-medium">Phone:</span> {signupFormData.phone}</div>}
+                        {signupFormData.businessType && <div><span className="font-medium">Business Type:</span> {signupFormData.businessType.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase())}</div>}
+                      </div>
+                    </Card>
+                  </div>
+                )}
+                <Card className="bg-white rounded-lg shadow p-6 border border-gray-200 pl-10">
+                  <OtpInput
+                    otp={otp}
+                    setOtp={setOtp}
+                    onSubmit={handleOtpSubmit}
+                    loading={signupMutation.isPending}
+                    label="Enter 6-digit OTP"
+                    buttonText="Create Account"
+                  />
+                </Card>
+              </>
+            ) : (
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(sendOtpToEmail)} className="space-y-4">
                   <FormField
@@ -442,25 +448,25 @@ export default function Signup() {
                   </p>
                 </form>
               </Form>
-              <div className="text-center">
-                <span className="text-gray-600">Already have an account? </span>
-                <Link href="/login">
-                  <span className="text-primary hover:underline font-medium cursor-pointer">
-                    Sign in
-                  </span>
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
-          <div className="text-center mt-6">
-            <Link href="/">
-              <span className="text-gray-500 hover:text-gray-700 cursor-pointer">
-                ← Back to Home
-              </span>
-            </Link>
-          </div>
+            )}
+            <div className="text-center">
+              <span className="text-gray-600">Already have an account? </span>
+              <Link href="/login">
+                <span className="text-primary hover:underline font-medium cursor-pointer">
+                  Sign in
+                </span>
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
+        <div className="text-center mt-6">
+          <Link href="/">
+            <span className="text-gray-500 hover:text-gray-700 cursor-pointer">
+              ← Back to Home
+            </span>
+          </Link>
         </div>
       </div>
-    )
+    </div>
   );
 }
