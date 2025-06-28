@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import GradientScrollText from "@/components/GradientScrollText";
 
 // Using placeholder images - replace with your actual images
 const slide1 = { src: "/attached_assets/1_1750152529582.jpg" };
@@ -77,12 +78,22 @@ export default function ImageSlider() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          <GradientScrollText
+            as="h2"
+            className="text-3xl lg:text-4xl font-bold mb-4"
+            variant="apple"
+            glow={true}
+          >
             Transform Your Beauty Business Today
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          </GradientScrollText>
+          <GradientScrollText
+            as="p"
+            className="text-xl max-w-3xl mx-auto"
+            variant="purple"
+            glow={true}
+          >
             Discover how Glame can revolutionize your salon operations with our comprehensive CRM platform
-          </p>
+          </GradientScrollText>
         </motion.div>
 
         <div className="relative">

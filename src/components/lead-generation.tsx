@@ -12,6 +12,7 @@ import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { Calendar, Shield, Star, Clock } from "lucide-react";
+import GradientScrollText from "@/components/GradientScrollText";
 
 export default function LeadGeneration() {
   const { toast } = useToast();
@@ -57,11 +58,21 @@ export default function LeadGeneration() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Side - Text Content */}
           <div className="text-white">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-6">
+            <GradientScrollText 
+              as="h2" 
+              className="text-3xl lg:text-4xl font-bold mb-6"
+              variant="apple"
+              glow={true}
+            >
               Ready to Transform Your Beauty Business?
-            </h2>
+            </GradientScrollText>
+
             <p className="text-xl text-gray-300 mb-8">
-              Join thousands of beauty professionals who have already streamlined their operations and boosted their revenue with Glame. See how our platform can work for your specific needs.
+              Join thousands of beauty professionals who have already streamlined their operations and boosted their revenue with{" "}
+              <GradientScrollText variant="purple" glow={true} className="font-semibold">
+                Glame
+              </GradientScrollText>
+              . See how our platform can work for your specific needs.
             </p>
 
             <div className="space-y-4 mb-8">

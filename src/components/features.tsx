@@ -12,6 +12,7 @@ import {
   Target,
   Code 
 } from "lucide-react";
+import GradientScrollText from "@/components/GradientScrollText";
 
 export default function Features() {
   const features = [
@@ -81,12 +82,22 @@ export default function Features() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          <GradientScrollText
+            as="h2"
+            className="text-3xl lg:text-4xl font-bold mb-4"
+            variant="apple"
+            glow={true}
+          >
             Everything You Need to Succeed
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          </GradientScrollText>
+          <GradientScrollText
+            as="p"
+            className="text-xl max-w-3xl mx-auto"
+            variant="purple"
+            glow={true}
+          >
             Discover powerful features designed specifically for beauty professionals to streamline operations and grow their business.
-          </p>
+          </GradientScrollText>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

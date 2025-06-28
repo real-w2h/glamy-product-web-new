@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
 import { motion } from "framer-motion";
+import GradientScrollText from "@/components/GradientScrollText";
 
 export default function HeroBanner() {
   const scrollToExplore = () => {
@@ -12,15 +13,20 @@ export default function HeroBanner() {
     <section id="home" className="gradient-hero py-20 lg:py-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <motion.h1 
-            className="text-4xl sm:text-3xl lg:text-5xl font-bold text-gray-800 mb-6"
+          <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            Grow Your Beauty Business with{" "}
-            <span className="text-gradient">Glame</span>
-          </motion.h1>
+            <GradientScrollText
+              as="h1"
+              className="text-4xl sm:text-3xl lg:text-5xl font-bold mb-6"
+              variant="apple"
+              glow={true}
+            >
+              Grow Your Beauty Business with Glame
+            </GradientScrollText>
+          </motion.div>
 
           <motion.div 
             className="flex flex-wrap justify-center gap-4 mb-8"
@@ -39,14 +45,20 @@ export default function HeroBanner() {
             </span>
           </motion.div>
 
-          <motion.p 
-            className="text-xl lg:text-2xl text-gray-600 mb-10 max-w-4xl mx-auto"
+          <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Simplify your beauty business with our all-in-one CRM platform. Manage appointments, billing, and customer engagement effortlessly.
-          </motion.p>
+            <GradientScrollText
+              as="p"
+              className="text-xl lg:text-2xl mb-10 max-w-4xl mx-auto"
+              variant="purple"
+              glow={true}
+            >
+              Simplify your beauty business with our all-in-one CRM platform. Manage appointments, billing, and customer engagement effortlessly.
+            </GradientScrollText>
+          </motion.div>
 
           <motion.div 
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
