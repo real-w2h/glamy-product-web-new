@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import GradientScrollText from "@/components/GradientScrollText";
 
 export default function Services() {
   const services = [
@@ -13,7 +14,7 @@ export default function Services() {
       features: ["Appointment management", "Staff scheduling", "Customer profiles"],
       color: "from-purple-50 to-purple-100",
       borderColor: "border-purple-200",
-      iconBg: "hsl(262, 88%, 66%); to-purple-600",
+      iconBg: "from-primary to-purple-600",
       buttonColor: "bg-primary hover:bg-purple-700",
     },
     {
@@ -48,12 +49,22 @@ export default function Services() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          <GradientScrollText
+            as="h2"
+            className="text-3xl lg:text-4xl font-bold mb-4"
+            variant="apple"
+            glow={true}
+          >
             Tailored Solutions for Every Beauty Professional
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          </GradientScrollText>
+          <GradientScrollText
+            as="p"
+            className="text-xl max-w-3xl mx-auto"
+            variant="purple"
+            glow={true}
+          >
             Whether you run a salon, work as a makeup artist, or manage a dermatology clinic, Glame has the perfect solution for you.
-          </p>
+          </GradientScrollText>
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-8">
