@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -21,7 +22,7 @@ export default function Header() {
           {/* Logo */}
           <div className="flex-shrink-0">
             <div className="flex items-center">
-              <img src="/logo.png" alt="Logo" className="w-40 h-40 rounded-lg object-cover" />
+              <Image src="/logo.png" alt="Logo" width={160} height={160} className="rounded-lg object-cover" />
               {/* <span className="ml-2 text-2xl font-bold text-gray-900">Glame</span> */}
             </div>
           </div>

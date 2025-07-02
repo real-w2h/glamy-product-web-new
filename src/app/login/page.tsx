@@ -17,7 +17,14 @@ import { useRouter } from "next/navigation";
 import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "@/lib/firebaseAuth";
+import Image from "next/image";
 
+interface LoginResponse {
+  success: boolean;
+  token?: string;
+  user?: Record<string, unknown>;
+  message?: string;
+}
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -38,7 +45,7 @@ export default function Login() {
       const response = await apiRequest("POST", "/api/auth/login", data);
       return response.json();
     },
-    onSuccess: (data: { success: boolean; token?: string; user?: any; message?: string }) => {
+    onSuccess: (data: LoginResponse) => {
       if (data.success && data.token && data.user) {
         localStorage.setItem("authToken", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
@@ -79,8 +86,7 @@ export default function Login() {
       });
       const res = await signInWithPopup(auth, provider);
       if (res.user.email) {
-        const token = await res.user.getIdToken();
-        // You can store the token or use it as needed
+        // You can use the token if needed later
         toast({
           title: "Google Login Successful",
           description: `Welcome, ${res.user.email}`,
@@ -113,7 +119,7 @@ export default function Login() {
           <Link href="/">
           <div className="flex items-center justify-center">
               <div className="flex items-center">
-              <img src="/logo.png" alt="Logo" className="w-40 h-15 rounded-lg object-cover" />
+              <Image src="/logo.png" alt="Logo" width={160} height={60} className="rounded-lg object-cover" />
             </div>
               </div>
           </Link>
@@ -136,7 +142,7 @@ export default function Login() {
                 onClick={handleGoogleLogin}
                 disabled={googleLoading}
               >
-              <img src="/google.png" alt="Logo" className="mr-3 h-6 w-6 text-red-500" />
+              <Image src="/google.png" alt="Google" width={24} height={24} className="mr-3" />
                 {googleLoading ? "Connecting..." : "Continue with Google"}
               </Button>
             </div>
@@ -234,7 +240,7 @@ export default function Login() {
             </Form>
 
             <div className="text-center">
-              <span className="text-gray-600">Don't have an account? </span>
+              <span className="text-gray-600">Don&apos;t have an account? </span>
               <Link href="/signup">
                 <span className="text-primary hover:underline font-medium cursor-pointer">
                   Sign up

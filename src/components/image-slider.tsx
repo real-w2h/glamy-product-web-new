@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import GradientScrollText from "@/components/GradientScrollText";
+import Image from "next/image";
 
 // Using placeholder images - replace with your actual images
 const slide1 = { src: "/attached_assets/1_1750152529582.jpg" };
@@ -50,9 +51,9 @@ export default function ImageSlider() {
   const itemsToShow = 3;
   const maxIndex = Math.max(0, slides.length - itemsToShow);
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
-  };
+  }, [maxIndex]);
 
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
@@ -108,9 +109,11 @@ export default function ImageSlider() {
                   <Link href="/signup">
                     <div className="cursor-pointer group">
                       <div className="relative rounded-2xl overflow-hidden shadow-xl bg-white">
-                        <img
+                        <Image
                           src={slide.image.src}
                           alt={slide.title}
+                          width={400}
+                          height={400}
                           className="w-full aspect-square object-cover transition-transform duration-300 group-hover:scale-105"
                         />
                       </div>

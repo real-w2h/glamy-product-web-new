@@ -1,4 +1,5 @@
 import { Facebook, Twitter, Linkedin, Instagram, Mail, Phone, MapPin } from "lucide-react";
+import Image from "next/image";
 
 export default function Footer() {
   const scrollToSection = (sectionId: string) => {
@@ -12,7 +13,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 items-start gap-12 mb-12">
           <div>
             <div className="flex items-center mb-6">
-            <img src="/logo.png" alt="Logo" className="w-40 h-10 rounded-lg object-cover" />
+            <Image src="/logo.png" alt="Logo" width={160} height={40} className="rounded-lg object-cover" />
             </div>
             <p className="text-gray-400 mb-6">
               Empowering beauty professionals with cutting-edge technology to grow their business and delight their customers.

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -32,7 +32,7 @@ export default function Testimonials() {
         role: "Dermatologist, New York",
         initial: "D",
         rating: 5,
-        content: "The patient management features are outstanding. We've reduced wait times and improved patient satisfaction significantly.",
+        content: "The patient management features are outstanding. We&apos;ve reduced wait times and improved patient satisfaction significantly.",
         color: "from-accent to-blue-600",
       },
     ],
@@ -50,7 +50,7 @@ export default function Testimonials() {
         role: "Beauty Consultant, Dallas",
         initial: "L",
         rating: 5,
-        content: "Billing and invoicing used to be a headache. Now it's completely automated and professional!",
+        content: "Billing and invoicing used to be a headache. Now it&apos;s completely automated and professional!",
         color: "from-purple-500 to-indigo-600",
       },
       {
@@ -58,15 +58,15 @@ export default function Testimonials() {
         role: "Hair Stylist, Seattle",
         initial: "R",
         rating: 5,
-        content: "The analytics help me understand my business better. I've optimized my services based on the insights!",
+        content: "The analytics help me understand my business better. I&apos;ve optimized my services based on the insights!",
         color: "from-yellow-500 to-orange-500",
       },
     ],
   ];
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % testimonialSets.length);
-  };
+  }, [testimonialSets.length]);
 
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + testimonialSets.length) % testimonialSets.length);
@@ -101,7 +101,7 @@ export default function Testimonials() {
             variant="purple"
             glow={true}
           >
-            Don't just take our word for it. Here's what our customers say about Glame.
+            Don&apos;t just take our word for it. Here&apos;s what our customers say about Glame.
           </GradientScrollText>
         </motion.div>
 
@@ -132,7 +132,7 @@ export default function Testimonials() {
                         <Star key={i} className="h-4 w-4 fill-current" />
                       ))}
                     </div>
-                    <p className="text-gray-700">"{testimonial.content}"</p>
+                    <p className="text-gray-700">&quot;{testimonial.content}&quot;</p>
                   </div>
                 ))}
               </motion.div>

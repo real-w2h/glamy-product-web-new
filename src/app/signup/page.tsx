@@ -19,6 +19,15 @@ import { Eye, EyeOff, Mail, Lock, User, Briefcase } from "lucide-react";
 import OtpInput from "@/components/OtpInput";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "@/lib/firebaseAuth";
+import Image from "next/image";
+
+interface SignupResponse {
+  success: boolean;
+  token?: string;
+  user?: Record<string, unknown>;
+  message?: string;
+  generatedDomain?: string;
+}
 
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
@@ -47,7 +56,7 @@ export default function Signup() {
       const response = await apiRequest("POST", "/api/auth/signup", data);
       return response.json();
     },
-    onSuccess: (data: { success: boolean; token?: string; user?: any; message?: string; generatedDomain?: string }) => {
+    onSuccess: (data: SignupResponse) => {
       if (data.success && data.token && data.user) {
         localStorage.setItem("authToken", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
@@ -88,7 +97,6 @@ export default function Signup() {
       });
       const res = await signInWithPopup(auth, provider);
       if (res.user.email) {
-        const token = await res.user.getIdToken();
         toast({
           title: "Google Login Successful",
           description: `Welcome, ${res.user.email}`,
@@ -214,7 +222,7 @@ export default function Signup() {
           <Link href="/">
           <div className="flex items-center justify-center">
             <div className="flex items-center">
-            <img src="/logo.png" alt="Logo" className="w-40 h-15 rounded-lg object-cover" />
+            <Image src="/logo.png" alt="Logo" width={160} height={60} className="rounded-lg object-cover" />
           </div>
             </div>
           </Link>
@@ -237,7 +245,7 @@ export default function Signup() {
                     onClick={handleGoogleLogin}
                     disabled={googleLoading}
                   >
-                    <img src="/google.png" alt="Logo" className="mr-3 h-6 w-6 text-red-500" />
+                    <Image src="/google.png" alt="Google" width={24} height={24} className="mr-3" />
                     {googleLoading ? "Connecting..." : "Continue with Google"}
                   </Button>
                 </div>
