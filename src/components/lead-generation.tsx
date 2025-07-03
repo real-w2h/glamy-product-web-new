@@ -11,7 +11,7 @@ import { insertLeadSchema, type InsertLead } from "@/shared/schema";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { Calendar, Shield, Star, Clock } from "lucide-react";
+import { Calendar, Shield, Star, Clock, ChevronLeft, ChevronRight } from "lucide-react";
 import GradientScrollText from "@/components/GradientScrollText";
 
 export default function LeadGeneration() {
@@ -53,7 +53,16 @@ export default function LeadGeneration() {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-r from-gray-900 to-gray-800">
+    <section className="relative py-20 px-4 flex items-center justify-center min-h-[80vh] bg-white overflow-hidden">
+      {/* Slider Navigation Buttons */}
+      <div className="absolute top-8 right-8 z-20 flex gap-3">
+        <button className="w-10 h-10 rounded-full bg-violet-600 hover:bg-violet-700 text-white flex items-center justify-center shadow-lg transition-all">
+          <ChevronLeft className="w-6 h-6" />
+        </button>
+        <button className="w-10 h-10 rounded-full bg-violet-600 hover:bg-violet-700 text-white flex items-center justify-center shadow-lg transition-all">
+          <ChevronRight className="w-6 h-6" />
+        </button>
+      </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Side - Text Content */}

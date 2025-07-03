@@ -36,7 +36,7 @@ export default function CTABanner() {
         >
           <Button 
             size="lg"
-            className="bg-white text-primary hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+            className="bg-pink-500 hover:bg-pink-600 text-white hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 border-pink-500"
           >
             Start with Glame Today
             <Rocket className="ml-2 h-4 w-4" />
@@ -44,7 +44,7 @@ export default function CTABanner() {
           <Button 
             size="lg"
             variant="outline"
-            className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 transition-colors border-white/30"
+            className="bg-white border-2 border-pink-500 text-pink-500 hover:bg-pink-50 transition-colors"
           >
             <Phone className="mr-2 h-4 w-4" />
             Call Sales: (555) 123-4567

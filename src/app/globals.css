@@ -65,12 +65,12 @@ body {
 
 .gradient-scroll-text {
   font-weight: bold;
-  background: linear-gradient(90deg, #ff00cc, #333399, #00ffcc, #ff00cc);
-  background-size: 300% 100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+  /* background: linear-gradient(90deg, #ff00cc, #333399, #00ffcc, #ff00cc); */
+  /* background-size: 300% 100%; */
+  /* background-clip: text; */
+  /* -webkit-background-clip: text; */
+  color: #f6339a;
+  -webkit-text-fill-color: #f6339a;
   opacity: var(--gradient-opacity, 1);
   transition: opacity 0.2s;
 }
@@ -238,4 +238,9 @@ body {
 
 .gradient-glow-cyber {
   filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.3));
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }

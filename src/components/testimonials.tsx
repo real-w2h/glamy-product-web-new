@@ -91,9 +91,18 @@ export default function Testimonials() {
             as="h2"
             className="text-3xl lg:text-4xl font-bold mb-4"
             variant="apple"
-            glow={true}
+            glow={false}
           >
-            Loved by Beauty Professionals Worldwide
+            <span style={{
+              background: 'linear-gradient(90deg, #f6339a, #ad46ff)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              color: 'transparent',
+              display: 'inline-block'
+            }}>
+              Loved by Beauty Professionals Worldwide
+            </span>
           </GradientScrollText>
           <GradientScrollText
             as="p"

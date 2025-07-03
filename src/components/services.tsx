@@ -8,7 +8,7 @@ import GradientScrollText from "@/components/GradientScrollText";
 export default function Services() {
   const services = [
     {
-      title: "For Salons",
+      title: "Salons & Studios",
       icon: "✂️",
       description: "Streamline your salon operations with comprehensive appointment scheduling, staff management, and customer relationship tools.",
       features: ["Appointment management", "Staff scheduling", "Customer profiles"],
@@ -18,7 +18,7 @@ export default function Services() {
       buttonColor: "bg-primary hover:bg-purple-700",
     },
     {
-      title: "For Makeup Artists",
+      title: "Makeup Artists",
       icon: "🎨",
       description: "Grow your freelance business with lead tracking, booking management, and automated promotional campaigns.",
       features: ["Lead tracking", "Booking management", "Promotion campaigns"],
@@ -28,7 +28,7 @@ export default function Services() {
       buttonColor: "bg-secondary hover:bg-pink-600",
     },
     {
-      title: "For Dermatologists",
+      title: "Dermatologists",
       icon: "👨‍⚕️",
       description: "Enhance your practice with advanced patient management, clinic automation, and comprehensive reporting tools.",
       features: ["Patient management", "Clinic automation", "Advanced reporting"],
@@ -53,9 +53,18 @@ export default function Services() {
             as="h2"
             className="text-3xl lg:text-4xl font-bold mb-4"
             variant="apple"
-            glow={true}
+            glow={false}
           >
-            Tailored Solutions for Every Beauty Professional
+            <span style={{
+              background: 'linear-gradient(90deg, #f6339a, #ad46ff)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              color: 'transparent',
+              display: 'inline-block'
+            }}>
+              Tailored Solutions for Every Beauty Professional
+            </span>
           </GradientScrollText>
           <GradientScrollText
             as="p"

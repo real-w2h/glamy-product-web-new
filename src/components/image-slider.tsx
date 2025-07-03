@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Home, Calendar, MessageSquare, CreditCard, Package, Boxes, Users, BarChart2 } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import GradientScrollText from "@/components/GradientScrollText";
@@ -62,12 +62,6 @@ export default function ImageSlider() {
     setCurrentIndex(Math.min(index, maxIndex));
   };
 
-  // Auto-play functionality
-  useEffect(() => {
-    const interval = setInterval(nextSlide, 4000);
-    return () => clearInterval(interval);
-  }, [nextSlide]);
-
   return (
     <section className="py-20 bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -84,19 +78,37 @@ export default function ImageSlider() {
             variant="apple"
             glow={true}
           >
-            Transform Your Beauty Business Today
-          </GradientScrollText>
-          <GradientScrollText
-            as="p"
-            className="text-xl max-w-3xl mx-auto"
-            variant="purple"
-            glow={true}
-          >
-            Discover how Glame can revolutionize your salon operations with our comprehensive CRM platform
+            <span style={{
+              background: 'linear-gradient(90deg, #f6339a, #ad46ff)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              color: 'transparent',
+              display: 'inline-block'
+            }}>Transform Your</span> <span style={{ color: '#f6339a', WebkitTextFillColor: '#f6339a' }}>Beauty Business Today</span>
           </GradientScrollText>
         </motion.div>
 
         <div className="relative">
+          {/* Navigation Arrows - Top Right */}
+          <div className="absolute top-6 right-8 flex gap-2 z-10">
+            <Button
+              variant="outline"
+              size="icon"
+              className="bg-white/90 backdrop-blur-sm text-gray-800 border-white/50 hover:bg-white shadow-lg"
+              onClick={prevSlide}
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              className="bg-white/90 backdrop-blur-sm text-gray-800 border-white/50 hover:bg-white shadow-lg"
+              onClick={nextSlide}
+            >
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          </div>
           {/* Main Slider Container */}
           <div className="overflow-hidden">
             <div 
@@ -120,24 +132,6 @@ export default function ImageSlider() {
               ))}
             </div>
           </div>
-
-          {/* Navigation Arrows */}
-          <Button
-            variant="outline"
-            size="icon"
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 backdrop-blur-sm text-gray-800 border-white/50 hover:bg-white shadow-lg z-10"
-            onClick={prevSlide}
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 backdrop-blur-sm text-gray-800 border-white/50 hover:bg-white shadow-lg z-10"
-            onClick={nextSlide}
-          >
-            <ChevronRight className="h-4 w-4" />
-          </Button>
 
           {/* Dots Indicator + Progress Bar Container */}
           <div className="w-full max-w-md mx-auto flex flex-col items-center justify-center mt-4">
@@ -186,7 +180,111 @@ export default function ImageSlider() {
             Join thousands of beauty professionals already growing with Glame
           </p>
         </motion.div>
+
+        {/* Marquee Band at Bottom with 15px margin top and 20px padding top and bottom */}
+        <div style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          width: '100vw',
+          background: '#fff',
+          borderTop: '2px solid #f3e8ff',
+          boxShadow: '0 -2px 8px rgba(244, 63, 94, 0.04)',
+          zIndex: 20,
+          overflow: 'hidden',
+          height: 'auto',
+          minHeight: '20px',
+          display: 'flex',
+          alignItems: 'center',
+          paddingTop: '20px',
+          paddingBottom: '20px',
+          marginTop: '15px',
+        }}>
+          <div style={{
+            display: 'inline-block',
+            whiteSpace: 'nowrap',
+            animation: 'marquee 18s linear infinite',
+            fontWeight: 600,
+            fontSize: '14px',
+            color: '#ad46ff',
+            letterSpacing: '0.04em',
+            lineHeight: '20px',
+          }}>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+              <Home size={16} style={{ marginRight: 2 }} /> Salon CRM
+            </span>
+            &nbsp; • &nbsp;
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+              <Calendar size={16} style={{ marginRight: 2 }} /> Appointment
+            </span>
+            &nbsp; • &nbsp;
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+              <MessageSquare size={16} style={{ marginRight: 2 }} /> WhatsApp Campaign
+            </span>
+            &nbsp; • &nbsp;
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+              <CreditCard size={16} style={{ marginRight: 2 }} /> Billing
+            </span>
+            &nbsp; • &nbsp;
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+              <Package size={16} style={{ marginRight: 2 }} /> Product Management
+            </span>
+            &nbsp; • &nbsp;
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+              <Boxes size={16} style={{ marginRight: 2 }} /> Inventory Management
+            </span>
+            &nbsp; • &nbsp;
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+              <Users size={16} style={{ marginRight: 2 }} /> Employee Management
+            </span>
+            &nbsp; • &nbsp;
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+              <BarChart2 size={16} style={{ marginRight: 2 }} /> Sales Reports
+            </span>
+            &nbsp; • &nbsp;
+            {/* Repeat for smooth marquee */}
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+              <Home size={16} style={{ marginRight: 2 }} /> Salon CRM
+            </span>
+            &nbsp; • &nbsp;
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+              <Calendar size={16} style={{ marginRight: 2 }} /> Appointment
+            </span>
+            &nbsp; • &nbsp;
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+              <MessageSquare size={16} style={{ marginRight: 2 }} /> WhatsApp Campaign
+            </span>
+            &nbsp; • &nbsp;
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+              <CreditCard size={16} style={{ marginRight: 2 }} /> Billing
+            </span>
+            &nbsp; • &nbsp;
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+              <Package size={16} style={{ marginRight: 2 }} /> Product Management
+            </span>
+            &nbsp; • &nbsp;
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+              <Boxes size={16} style={{ marginRight: 2 }} /> Inventory Management
+            </span>
+            &nbsp; • &nbsp;
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+              <Users size={16} style={{ marginRight: 2 }} /> Employee Management
+            </span>
+            &nbsp; • &nbsp;
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+              <BarChart2 size={16} style={{ marginRight: 2 }} /> Sales Reports
+            </span>
+          </div>
+        </div>
       </div>
     </section>
   );
 }
+
+/* Add this to the bottom of the file (or in a global CSS file):
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+*/
