@@ -45,42 +45,6 @@ export default function FormSection() {
           </div>
         </div>
       </section>
-      {/* Discover More New Features Section */}
-      <section className="relative py-20 bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center px-4">
-          {/* Left Side */}
-          <div>
-            <h2 className="text-5xl font-extrabold text-[#23235f] mb-10 leading-tight">
-              Discover more new<br />features
-            </h2>
-            <div className="space-y-10 mb-12">
-              {/* Feature 1 */}
-              <div className="flex items-start gap-5">
-                <svg width="40" height="40" fill="none" stroke="#ad46ff" strokeWidth="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-                <div>
-                  <div className="font-bold text-lg text-[#23235f] mb-1">Business Strategy</div>
-                  <div className="text-gray-500 max-w-md">Lorem Ipsum is simply dummy text of the printing and typesetting industry when an unknown printer took a galley of type and scrambled it to make.</div>
-                </div>
-              </div>
-              {/* Feature 2 */}
-              <div className="flex items-start gap-5">
-                <svg width="40" height="40" fill="none" stroke="#ad46ff" strokeWidth="2.5" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M8 12h8"/></svg>
-                <div>
-                  <div className="font-bold text-lg text-[#23235f] mb-1">Business Strategy</div>
-                  <div className="text-gray-500 max-w-md">Lorem Ipsum is simply dummy text of the printing and typesetting industry when an unknown printer took a galley of type and scrambled it to make.</div>
-                </div>
-              </div>
-            </div>
-            <button className="mt-2 px-10 py-4 rounded-full bg-[#ffd34e] text-[#23235f] font-semibold text-lg shadow-md hover:bg-yellow-400 transition">Learn More</button>
-          </div>
-          {/* Right Side: Dashboard Image */}
-          <div className="flex justify-center items-center relative">
-            <img src="/attached_assets/Banner.png" alt="Dashboard" className="w-full max-w-xl rounded-2xl shadow-2xl" />
-          </div>
-        </div>
-        {/* Yellow Accent Shape */}
-        <div className="absolute left-0 bottom-0 w-1/3 h-48 bg-[#ffd34e] rounded-tr-full opacity-60 -z-10" style={{clipPath: 'ellipse(60% 100% at 0% 100%)'}} />
-      </section>
     </>
   );
 } 
