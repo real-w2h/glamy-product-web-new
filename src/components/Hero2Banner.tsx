@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import ImageSlider from "@/components/image-slider";
 
 const Hero2Banner = () => {
   return (
@@ -16,26 +17,19 @@ const Hero2Banner = () => {
             to grow your business successfully.
           </p>
           <div className="hero2-buttons">
-            <button className="hero2-btn">GET STARTED</button>
+            <button className="hero2-btn primary">GET STARTED</button>
             <button className="hero2-btn secondary">
               HOW IT WORKS <span className="arrow">↗</span>
           </button>
         </div>
       </div>
         <div className="hero2-image-group">
-          <img
-            src="/attached_assets/@GlameBeauty-4.png"
-            alt="Hero"
-            className="hero2-image hero2-image-full"
-            width={1080}
-            height={1920}
-            style={{ objectFit: 'contain', borderRadius: '40px', border: '3px solid #000', background: 'transparent', position: 'absolute', left: '50%', bottom: 0, transform: 'translateX(-50%)' }}
-          />
+          <ImageSlider />
           {/* Placeholder badge */}
-          <div className="seo-badge">
+          {/* <div className="seo-badge">
             <span>SEO MARKETING</span>
             <span className="star">✦</span>
-          </div>
+          </div> */}
         </div>
       </div>
       {/* Decorative elements (optional) */}
@@ -67,8 +61,7 @@ const Hero2Banner = () => {
           font-weight: 400;
         }
         .hero2-banner {
-          background: #fdf1ed;
-          min-height: 100vh;
+          background: #ffffff;
           padding: 60px 0 0 0;
           position: relative;
           font-family: 'GeneralSans-Bold', Arial, sans-serif;
@@ -85,37 +78,51 @@ const Hero2Banner = () => {
         .hero2-title-group {
           flex: 1;
           margin-top: 40px;
+          margin-bottom: 0;
         }
         .hero2-buttons {
           display: flex;
           gap: 24px;
+          margin-bottom: 0;
         }
         .hero2-btn {
-          background: #fff;
-          border: 2px solid #000;
-          border-radius: 40px;
-          padding: 18px 44px;
+          padding: 18px 36px;
+          border-radius: 50px;
           font-size: 18px;
           font-family: 'GeneralSans-Bold', Arial, sans-serif;
           font-weight: 700;
           cursor: pointer;
-          transition: background 0.2s, color 0.2s;
-        }
-        .hero2-btn.secondary {
-          background: #fff;
-          color: #000;
+          transition: all 0.3s ease;
           display: flex;
           align-items: center;
           gap: 8px;
+          box-shadow: none;
+          border: none;
+          background: #fff;
+          color: #1a1a1a;
+        }
+        .hero2-btn.primary {
+          background: linear-gradient(to right, #9333ea, #ec4899);
+          color: #fff;
+          box-shadow: 0 10px 25px rgba(147, 51, 234, 0.3);
+          border: none;
+        }
+        .hero2-btn.secondary {
+          background: #fff;
+          color: #1a1a1a;
+          border: 2px solid #e2e8f0;
+          box-shadow: none;
         }
         .hero2-btn .arrow {
           font-size: 22px;
+          transition: transform 0.3s ease;
         }
         .hero2-image-group {
           position: relative;
           width: 540px;
           height: 576px;
           margin-left: 40px;
+          padding-left: 20px;
           flex-shrink: 0;
           display: flex;
           align-items: flex-end;

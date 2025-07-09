@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import GradientScrollText from "@/components/GradientScrollText";
+// import SalonShowcaseSection from "@/components/SalonShowcaseSection";
 
 export default function Services() {
   const services = [
@@ -40,72 +41,108 @@ export default function Services() {
   ];
 
   return (
-    <section id="services" className="py-20 bg-white">
+    <section id="services" className="py-20 bg-white mb-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div 
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <GradientScrollText
-            as="h2"
-            className="text-3xl lg:text-4xl font-bold mb-4"
-            variant="apple"
-            glow={false}
-          >
-            <span style={{
-              background: 'linear-gradient(90deg, #f6339a, #ad46ff)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              color: 'transparent',
-              display: 'inline-block'
-            }}>
-              Tailored Solutions for Every Beauty Professional
-            </span>
-          </GradientScrollText>
-          <GradientScrollText
-            as="p"
-            className="text-xl max-w-3xl mx-auto"
-            variant="purple"
-            glow={true}
-          >
-            Whether you run a salon, work as a makeup artist, or manage a dermatology clinic, Glame has the perfect solution for you.
-          </GradientScrollText>
-        </motion.div>
-
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-extrabold mb-2 bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+            Tailored Solutions for Every Beauty Professional
+          </h2>
+          <p className="text-xl text-purple-400 max-w-3xl mx-auto">
+            Whether you run a salon, work as a makeup artist, or manage a dermatology clinic, <span className="text-pink-500 font-semibold">Glame</span> has the perfect solution for you.
+          </p>
+        </div>
         <div className="grid md:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <motion.div
+          {services.map((service) => (
+            <div
               key={service.title}
-              className={`bg-gradient-to-br ${service.color} p-8 rounded-2xl hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border ${service.borderColor}`}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
-              viewport={{ once: true }}
+              className={`bg-white/80 p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col min-h-[420px]`}
             >
-              <div className={`w-16 h-16 bg-gradient-to-br ${service.iconBg} rounded-xl flex items-center justify-center mb-6`}>
-                <span className="text-white text-2xl">{service.icon}</span>
+              <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 text-3xl bg-gradient-to-br from-purple-100 to-pink-100">
+                <span>{service.icon}</span>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">{service.title}</h3>
-              <p className="text-gray-600 mb-6">{service.description}</p>
-              <ul className="space-y-3 mb-8">
+              <h3 className="text-xl font-bold text-gray-900 mb-3">{service.title}</h3>
+              <p className="text-gray-600 mb-5 text-base">{service.description}</p>
+              <ul className="space-y-2 mb-8">
                 {service.features.map((feature) => (
-                  <li key={feature} className="flex items-center text-gray-700">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
+                  <li key={feature} className="flex items-center text-gray-700 text-base">
+                    <span className="text-green-500 mr-2">✔️</span>
                     {feature}
                   </li>
                 ))}
               </ul>
-              <Button className={`w-full ${service.buttonColor} text-white transition-colors`}>
-                Learn More
-              </Button>
-            </motion.div>
+              <div className="mt-auto text-sm font-semibold pt-2 select-none cursor-default text-[#f6339a]">
+                Learn More →
+              </div>
+            </div>
           ))}
         </div>
       </div>
+      
+      {/* Salon Showcase Section */}
+      {/* <SalonShowcaseSection /> */}
+
+      {/* Glame Section Button Image */}
+      <div className="w-full mt-10 flex flex-col items-center">
+        <img
+          src="/Glame_section_button.png"
+          alt="Book Your Free Demo"
+          className="w-full object-cover"
+        />
+        <div className="flex gap-5 mt-6 flex-wrap justify-center" style={{ marginTop: '-80px' }}>
+          <button
+            style={{
+              padding: '18px 36px',
+              borderRadius: '50px',
+              fontSize: '18px',
+              fontFamily: 'GeneralSans-Bold, Arial, sans-serif',
+              fontWeight: 700,
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              border: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'linear-gradient(to right, #9333ea, #ec4899)',
+              color: '#fff',
+              boxShadow: '0 10px 25px rgba(147, 51, 234, 0.3)'
+            }}
+          >
+            START FREE TRIAL
+          </button>
+          <button
+            style={{
+              padding: '18px 36px',
+              borderRadius: '50px',
+              fontSize: '18px',
+              fontFamily: 'GeneralSans-Bold, Arial, sans-serif',
+              fontWeight: 700,
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+              border: '2px solid #e2e8f0',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: '#fff',
+              color: '#1a1a1a'
+            }}
+          >
+            WATCH DEMO <span style={{ fontSize: '20px', marginLeft: '4px' }}>→</span>
+          </button>
+        </div>
+      </div>
+      <style jsx>{`
+        @media (max-width: 600px) {
+          .glame-bottom-buttons {
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+          }
+          .glame-bottom-buttons button {
+            width: 100%;
+            justify-content: center;
+          }
+        }
+      `}</style>
     </section>
   );
 }

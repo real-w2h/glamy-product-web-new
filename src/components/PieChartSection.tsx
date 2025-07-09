@@ -42,7 +42,7 @@ export default function PieChartSection() {
       <img src="/attached_assets/icon_1.png" alt="Pink Flower" className="absolute right-4 bottom-4 w-14 h-14 z-30" />
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center relative">
         {/* Left: Pie Chart with overlays and lines */}
-        <div className="relative flex items-center justify-center min-h-[500px]">
+        <div className="relative flex items-center justify-center min-h-[500px]" style={{ paddingLeft: '20px' }}>
           {/* Pie Chart PNG */}
           <img src="/attached_assets/section_pie.png" alt="Pie Chart" className="w-[370px] h-[370px] object-contain z-10" />
         </div>

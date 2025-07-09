@@ -62,14 +62,6 @@ export default function Footer() {
                 </button>
               </li>
               <li>
-                <button 
-                  onClick={() => scrollToSection("testimonials")}
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Testimonials
-                </button>
-              </li>
-              <li>
                 <a href="#" className="text-gray-400 hover:text-white transition-colors">Pricing</a>
               </li>
               <li>
@@ -97,9 +89,6 @@ export default function Footer() {
               <li>
                 <a href="#" className="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
               </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">Security</a>
-              </li>
             </ul>
           </div>
 
@@ -115,16 +104,14 @@ export default function Footer() {
               </div>
               <div className="flex items-center">
                 <Phone className="h-4 w-4 text-purple-400 mr-3" />
-                <a href="tel:+15551234567" className="text-gray-400 hover:text-white transition-colors">
-                  +1 (555) 123-4567
+                <a href="tel:+919650833553" className="text-gray-400 hover:text-white transition-colors">
+                  +91 9650833553
                 </a>
               </div>
               <div className="flex items-start">
                 <MapPin className="h-4 w-4 text-purple-400 mr-3 mt-1" />
                 <span className="text-gray-400">
-                  123 Beauty Street<br />
-                  Suite 456<br />
-                  New York, NY 10001
+                  4th,443 Cloud 9 Vaishali Sector 1 Ghaziabad 201010
                 </span>
               </div>
             </div>
@@ -134,7 +121,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="border-t border-gray-800 pt-8 text-center mt-8">
           <p className="text-gray-400">
-            © 2024 Glame. All rights reserved. Made with <span className="text-red-500">♥</span> for beauty professionals.
+            © 2025 Glame. All rights reserved. Made with <span className="text-red-500">♥</span> Futuremeservices
           </p>
         </div>
       </div>

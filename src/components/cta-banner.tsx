@@ -47,7 +47,7 @@ export default function CTABanner() {
             className="bg-white border-2 border-pink-500 text-pink-500 hover:bg-pink-50 transition-colors"
           >
             <Phone className="mr-2 h-4 w-4" />
-            Call Sales: (555) 123-4567
+            Call Sales: +91 9650833553
           </Button>
         </motion.div>
 
