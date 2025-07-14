@@ -29,10 +29,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Providers>
-          {children}
-          <Toaster />
-        </Providers>
+        <div className="min-h-screen bg-gradient-to-r from-pink-50 via-purple-50 to-blue-50">
+          <Providers>
+            {children}
+            <Toaster />
+          </Providers>
+        </div>
       </body>
     </html>
   );

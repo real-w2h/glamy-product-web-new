@@ -1,35 +1,60 @@
 import React from "react";
 import Image from "next/image";
 import ImageSlider from "@/components/image-slider";
+import ScrollTriggeredPopup from "@/components/ScrollTriggeredPopup";
 
 const Hero2Banner = () => {
   return (
-    <div className="hero2-banner">
-      <div className="hero2-content">
-        <div className="hero2-title-group">
+    <section className="hero2-banner bg-gradient-to-r from-pink-50 via-purple-50 to-blue-50 w-full py-20">
+      <ScrollTriggeredPopup autoOpen={true} />
+      <div className="hero2-content" style={{ flexWrap: 'wrap', gap: '48px', background: 'transparent' }}>
+        <div className="hero2-title-group" style={{ minWidth: 320, flex: 1 }}>
           <h1 className="main-title">
           Grow your <br />
             Salon Business <br />
             <span className="highlight">with Glame CRM</span>
         </h1>
-          <p className="subtitle">
-            Boost your online presence, and attract the right audience<br />
-            to grow your business successfully.
-          </p>
+          <ul className="mb-8 space-y-3">
+            <li className="flex items-center text-base" style={{ color: '#000' }}><span className="mr-2 text-yellow-400">★</span> Trusted by beauty professionals</li>
+            <li className="flex items-center text-base" style={{ color: '#000' }}><span className="mr-2 text-green-400">⏱️</span> Setup in under 10 minutes</li>
+          </ul>
           <div className="hero2-buttons">
-            <button className="hero2-btn primary">GET STARTED</button>
+            <button
+              className="hero2-btn primary transition-transform duration-200 ease-in-out"
+              style={{ willChange: 'transform' }}
+              onMouseDown={e => e.currentTarget.style.transform = 'scale(0.95)'}
+              onMouseUp={e => e.currentTarget.style.transform = 'scale(1.08)'}
+              onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+              onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.08)'}
+            >
+              START FREE TRIAL
+            </button>
             <button className="hero2-btn secondary">
               HOW IT WORKS <span className="arrow">↗</span>
-          </button>
+            </button>
+          </div>
         </div>
-      </div>
-        <div className="hero2-image-group">
-          <ImageSlider />
-          {/* Placeholder badge */}
-          {/* <div className="seo-badge">
-            <span>SEO MARKETING</span>
-            <span className="star">✦</span>
-          </div> */}
+        <div className="hero2-image-group" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', maxWidth: 600, minWidth: 320, flex: 1 }}>
+          <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-lg ml-auto">
+            <h3 className="text-2xl font-bold mb-4 text-gray-900">Get Started Today</h3>
+            <form className="space-y-4">
+              <input type="text" placeholder="Full Name" className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-300" />
+              <input type="email" placeholder="Email Address" className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-300" />
+              <input type="text" placeholder="Phone Number" className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-300" />
+              <select className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-300 text-gray-500">
+                <option value="">Select your business type</option>
+                <option value="salon">Salon</option>
+                <option value="makeup_artist">Makeup Artist</option>
+                <option value="dermatologist">Dermatologist</option>
+                <option value="spa">Spa</option>
+                <option value="barber_shop">Barber Shop</option>
+                <option value="nail_salon">Nail Salon</option>
+                <option value="other">Other</option>
+              </select>
+              <button type="submit" className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold py-3 rounded-lg shadow-lg hover:from-purple-600 hover:to-pink-600 transition-all mt-2 text-lg">Start Free Trial</button>
+              <p className="text-xs text-gray-500 text-center mt-2">No credit card required. 14-day free trial.</p>
+            </form>
+          </div>
         </div>
       </div>
       {/* Decorative elements (optional) */}
@@ -61,7 +86,6 @@ const Hero2Banner = () => {
           font-weight: 400;
         }
         .hero2-banner {
-          background: #ffffff;
           padding: 60px 0 0 0;
           position: relative;
           font-family: 'GeneralSans-Bold', Arial, sans-serif;
@@ -178,8 +202,33 @@ const Hero2Banner = () => {
           font-size: 32px;
           margin-top: 4px;
         }
+        @media (max-width: 1024px) {
+          .hero2-content {
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            padding: 0 16px;
+          }
+          .hero2-image-group {
+            max-width: 100vw;
+            min-width: 0;
+            width: 100%;
+            justify-content: center;
+            margin-left: 0;
+            padding-left: 0;
+          }
+        }
+        @media (max-width: 768px) {
+          .main-title {
+            font-size: 36px;
+          }
+          .hero2-image-group > div {
+            max-width: 100vw;
+            min-width: 0;
+          }
+        }
       `}</style>
-    </div>
+    </section>
   );
 };
 

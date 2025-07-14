@@ -42,11 +42,26 @@
 }
 
 body {
-  background: var(--background);
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  background: linear-gradient(270deg, #ffe4f6, #ede9fe, #dbeafe, #ffe4f6);
+  background-size: 400% 400%;
+  animation: gradientBG 18s ease infinite;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
 
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 
 .gradient-primary {
   background: linear-gradient(135deg, hsl(260, 82%, 39%) 0%, hsl(321, 78%, 60%) 100%);
@@ -243,4 +258,12 @@ body {
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
+}
+
+.popup-image-section {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  color: transparent;
 }

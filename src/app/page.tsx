@@ -8,6 +8,8 @@ import GrowSalonSection from "@/components/GrowSalonSection";
 import ImageSlider from "@/components/image-slider";
 import Services from "@/components/services";
 import Features from "@/components/features";
+import GlameFeaturesSection from "@/components/GlameFeaturesSection";
+import GlameDashboardBanner from "@/components/GlameDashboardBanner";
 import Testimonials from "@/components/testimonials";
 import CTABanner from "@/components/cta-banner";
 import Footer from "@/components/footer";
@@ -15,24 +17,29 @@ import WorkProcessSection from "@/components/WorkProcessSection";
 // import PieChartSection from "@/components/PieChartSection";
 import FormSection from "@/components/FormSection";
 // import BusinessReportSection from "@/components/BusinessReportSection";
+import ScrollTriggeredPopup from "@/components/ScrollTriggeredPopup";
+import MultiImageSlider from "../components/MultiImageSlider";
 
 export default function Home() {
   return (
     <div className="min-h-screen">
       <Header />
-      <HerobannerFinal />
-      <FormSection />
+      <MultiImageSlider />
+      <GlameDashboardBanner />
+      {/* <FormSection /> */}
       {/* <BusinessReportSection /> */}
       {/* Banner Section Alignment Fix ko hata diya */}
       {/* <WorkProcessSection /> */}
       {/* <PieChartSection /> */}
+      <Hero2Banner />
+      <GlameFeaturesSection />
       <Services />
       <Features />
       <GrowSalonSection />
-      <Hero2Banner />
       <Testimonials />
       <CTABanner />
       <Footer />
+      <ScrollTriggeredPopup />
     </div>
   );
 }
