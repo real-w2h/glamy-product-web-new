@@ -1,35 +1,90 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 
 export default function FormSection() {
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    businessType: ""
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle form submission here
+    console.log("Form submitted:", formData);
+  };
+
   return (
-    <>
-      <section className="relative py-20 px-4 flex items-center justify-center min-h-[80vh] bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50">
-        <div className="relative z-10 max-w-6xl w-full mx-auto grid md:grid-cols-2 gap-12 items-center">
-          {/* Left Side */}
-          <div>
-            <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-purple-600 inline-block">
-              Ready to Transform Your Beauty Business?
-            </h2>
-            <p className="mb-6 max-w-md" style={{ color: '#000' }}>
-              Join thousands of beauty professionals who have already streamlined their operations and boosted their revenue with <span className="text-pink-400 font-bold">Glame</span>. See how our platform can work for your specific needs.
-            </p>
-            <ul className="mb-8 space-y-3">
-              <li className="flex items-center text-base" style={{ color: '#000' }}><span className="mr-2 text-yellow-400">★</span> Trusted by beauty professionals</li>
-              <li className="flex items-center text-base" style={{ color: '#000' }}><span className="mr-2 text-green-400">⏱️</span> Setup in under 10 minutes</li>
-              <li className="flex items-center text-base" style={{ color: '#000' }}><span className="mr-2 text-blue-400">🛡️</span> Bank-level security</li>
-            </ul>
-            <button className="bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold px-8 py-3 rounded-lg shadow-lg hover:from-purple-600 hover:to-pink-600 transition-all flex items-center gap-2">
-              Book a Free Demo <span>📅</span>
-            </button>
-          </div>
-          {/* Right Side - Form */}
-          <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-lg ml-auto">
-            <h3 className="text-2xl font-bold mb-4 text-gray-900">Get Started Today</h3>
-            <form className="space-y-4">
-              <input type="text" placeholder="Full Name" className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-300" />
-              <input type="email" placeholder="Email Address" className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-300" />
-              <input type="text" placeholder="Phone Number" className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-300" />
-              <select className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-300 text-gray-500">
+    <section className="relative py-20 px-4 flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50">
+      <div className="w-full max-w-lg mx-auto">
+        <div className="bg-white rounded-3xl shadow-xl p-8 border border-gray-100">
+          <h2 className="text-3xl font-bold text-gray-900 mb-8">
+            Get Started Today
+          </h2>
+          
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Full Name */}
+            <div>
+              <input
+                type="text"
+                name="fullName"
+                value={formData.fullName}
+                onChange={handleInputChange}
+                placeholder="Full Name"
+                required
+                className="w-full px-5 py-4 text-lg rounded-2xl border-2 border-gray-200 focus:outline-none focus:ring-0 focus:border-purple-400 transition-all placeholder-gray-400"
+              />
+            </div>
+
+            {/* Email Address */}
+            <div>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                placeholder="Email Address"
+                required
+                className="w-full px-5 py-4 text-lg rounded-2xl border-2 border-gray-200 focus:outline-none focus:ring-0 focus:border-purple-400 transition-all placeholder-gray-400"
+              />
+            </div>
+
+            {/* Phone Number */}
+            <div>
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleInputChange}
+                placeholder="Phone Number"
+                className="w-full px-5 py-4 text-lg rounded-2xl border-2 border-gray-200 focus:outline-none focus:ring-0 focus:border-purple-400 transition-all placeholder-gray-400"
+              />
+            </div>
+
+            {/* Business Type */}
+            <div>
+              <select
+                name="businessType"
+                value={formData.businessType}
+                onChange={handleInputChange}
+                className="w-full px-5 py-4 text-lg rounded-2xl border-2 border-gray-200 focus:outline-none focus:ring-0 focus:border-purple-400 transition-all text-gray-400 appearance-none bg-white cursor-pointer"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
+                  backgroundPosition: 'right 1.5rem center',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: '1.5em 1.5em'
+                }}
+              >
                 <option value="">Select your business type</option>
                 <option value="salon">Salon</option>
                 <option value="makeup_artist">Makeup Artist</option>
@@ -39,12 +94,27 @@ export default function FormSection() {
                 <option value="nail_salon">Nail Salon</option>
                 <option value="other">Other</option>
               </select>
-              <button type="submit" className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold py-3 rounded-lg shadow-lg hover:from-purple-600 hover:to-pink-600 transition-all mt-2 text-lg">Start Free Trial</button>
-              <p className="text-xs text-gray-500 text-center mt-2">No credit card required. 14-day free trial.</p>
-            </form>
-          </div>
+            </div>
+
+            {/* Submit Button */}
+            <div className="pt-4">
+              <button
+                type="submit"
+                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold py-4 px-8 rounded-2xl shadow-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-[1.02] text-lg"
+              >
+                Start Free Trial
+              </button>
+            </div>
+
+            {/* Bottom Text */}
+            <div className="text-center pt-4">
+              <p className="text-gray-500 text-base">
+                No credit card required. 14-day free trial.
+              </p>
+            </div>
+          </form>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 } 

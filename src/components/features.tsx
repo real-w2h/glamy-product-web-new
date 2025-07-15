@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { motion } from "framer-motion";
 import { 
   Calendar, 
@@ -13,8 +14,20 @@ import {
   Code 
 } from "lucide-react";
 import GradientScrollText from "@/components/GradientScrollText";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 export default function Features() {
+  const plugin = React.useRef(
+    Autoplay({ delay: 4000, stopOnInteraction: true })
+  );
+
   const features = [
     {
       icon: Calendar,
@@ -100,7 +113,7 @@ export default function Features() {
   ];
 
   return (
-    <section id="features" className="py-8 bg-gradient-to-r from-pink-50 via-purple-50 to-blue-50">
+    <section id="features" className="py-8 my-16 bg-gradient-to-r from-pink-50 via-purple-50 to-blue-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
           className="text-center mb-16"
@@ -136,28 +149,40 @@ export default function Features() {
           </GradientScrollText>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <motion.div
-              key={feature.title}
-              className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col items-start border border-gray-100"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <div className="flex items-center mb-4">
-                <span className="bg-pink-100 text-pink-500 rounded-full p-3 mr-3">
-                  <feature.icon className="h-7 w-7" />
-                </span>
-                <span className="text-2xl font-bold text-pink-100">{feature.number}</span>
-              </div>
-              <h3 className="font-bold text-lg mb-2 text-gray-900">{feature.title}</h3>
-              <p className="text-gray-600 mb-4 text-sm">{feature.description}</p>
-              <a href={feature.ctaHref} className="text-sm font-semibold text-pink-500 hover:underline flex items-center mt-auto">{feature.cta} <span className="ml-1">→</span></a>
-            </motion.div>
-          ))}
-        </div>
+        <Carousel
+          plugins={[plugin.current]}
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          className="w-full max-w-7xl mx-auto"
+        >
+          <CarouselContent className="-ml-4">
+            {features.map((feature, index) => (
+              <CarouselItem key={feature.title} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                <motion.div
+                  className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col items-start border border-gray-100 h-full"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="flex items-center mb-4">
+                    <span className="bg-pink-100 text-pink-500 rounded-full p-3 mr-3">
+                      <feature.icon className="h-7 w-7" />
+                    </span>
+                    <span className="text-2xl font-bold text-pink-100">{feature.number}</span>
+                  </div>
+                  <h3 className="font-bold text-lg mb-2 text-gray-900">{feature.title}</h3>
+                  <p className="text-gray-600 mb-4 text-sm">{feature.description}</p>
+                  <a href={feature.ctaHref} className="text-sm font-semibold text-pink-500 hover:underline flex items-center mt-auto">{feature.cta} <span className="ml-1">→</span></a>
+                </motion.div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="ml-12" />
+          <CarouselNext className="mr-12" />
+        </Carousel>
       </div>
     </section>
   );

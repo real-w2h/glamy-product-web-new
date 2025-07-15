@@ -19,27 +19,29 @@ import FormSection from "@/components/FormSection";
 // import BusinessReportSection from "@/components/BusinessReportSection";
 import ScrollTriggeredPopup from "@/components/ScrollTriggeredPopup";
 import MultiImageSlider from "../components/MultiImageSlider";
-
 export default function Home() {
   return (
     <div className="min-h-screen">
       <Header />
-      <MultiImageSlider />
-      <GlameDashboardBanner />
-      {/* <FormSection /> */}
-      {/* <BusinessReportSection /> */}
-      {/* Banner Section Alignment Fix ko hata diya */}
-      {/* <WorkProcessSection /> */}
-      {/* <PieChartSection /> */}
-      <Hero2Banner />
-      <GlameFeaturesSection />
-      <Services />
-      <Features />
-      <GrowSalonSection />
-      <Testimonials />
-      <CTABanner />
-      <Footer />
-      <ScrollTriggeredPopup />
+      
+      <div className="pt-16">
+        <MultiImageSlider />
+        <GlameDashboardBanner />
+        {/* <FormSection /> */}
+        {/* <BusinessReportSection /> */}
+        {/* Banner Section Alignment Fix ko hata diya */}
+        {/* <WorkProcessSection /> */}
+        {/* <PieChartSection /> */}
+        <Hero2Banner />
+        <CTABanner />
+        <GlameFeaturesSection />
+        <Services />
+        <Testimonials />
+        <Features />
+        <GrowSalonSection />
+        <Footer />
+        <ScrollTriggeredPopup />
+      </div>
     </div>
   );
 }

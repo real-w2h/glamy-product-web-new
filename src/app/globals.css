@@ -2,6 +2,52 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Header and Navigation Fixes */
+.header-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+}
+
+.mega-menu-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
+  width: 800px;
+  max-width: 95vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Ensure mega menu doesn't get clipped on smaller screens */
+@media (max-width: 900px) {
+  .mega-menu-dropdown {
+    left: 0;
+    transform: none;
+    width: 100%;
+    max-width: calc(100vw - 2rem);
+    margin-left: 1rem;
+  }
+}
+
+/* Mobile menu improvements */
+.mobile-menu {
+  position: relative;
+  z-index: 55;
+  background: white;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Prevent mega menu from being clipped */
+.mega-menu-container {
+  position: relative;
+  z-index: 60;
+}
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -267,3 +313,31 @@ body {
   inset: 0;
   color: transparent;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

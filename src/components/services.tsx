@@ -81,68 +81,7 @@ export default function Services() {
       {/* Salon Showcase Section */}
       {/* <SalonShowcaseSection /> */}
 
-      {/* Glame Section Button Image */}
-      <div className="w-full mt-10 flex flex-col items-center">
-        <img
-          src="/Glame_section_button.png"
-          alt="Book Your Free Demo"
-          className="w-full object-cover"
-        />
-        <div className="flex gap-5 mt-6 flex-wrap justify-center" style={{ marginTop: '-80px' }}>
-          <button
-            style={{
-              padding: '18px 36px',
-              borderRadius: '50px',
-              fontSize: '18px',
-              fontFamily: 'GeneralSans-Bold, Arial, sans-serif',
-              fontWeight: 700,
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              border: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              background: 'linear-gradient(to right, #9333ea, #ec4899)',
-              color: '#fff',
-              boxShadow: '0 10px 25px rgba(147, 51, 234, 0.3)'
-            }}
-          >
-            START FREE TRIAL
-          </button>
-          <button
-            style={{
-              padding: '18px 36px',
-              borderRadius: '50px',
-              fontSize: '18px',
-              fontFamily: 'GeneralSans-Bold, Arial, sans-serif',
-              fontWeight: 700,
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              border: '2px solid #e2e8f0',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              background: '#fff',
-              color: '#1a1a1a'
-            }}
-          >
-            WATCH DEMO <span style={{ fontSize: '20px', marginLeft: '4px' }}>→</span>
-          </button>
-        </div>
-      </div>
-      <style jsx>{`
-        @media (max-width: 600px) {
-          .glame-bottom-buttons {
-            flex-direction: column;
-            gap: 16px;
-            width: 100%;
-          }
-          .glame-bottom-buttons button {
-            width: 100%;
-            justify-content: center;
-          }
-        }
-      `}</style>
+
     </section>
   );
 }

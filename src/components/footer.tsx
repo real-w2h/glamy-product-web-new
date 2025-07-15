@@ -98,8 +98,8 @@ export default function Footer() {
             <div className="space-y-4">
               <div className="flex items-center">
                 <Mail className="h-4 w-4 text-purple-400 mr-3" />
-                <a href="mailto:hello@glame.com" className="text-gray-400 hover:text-white transition-colors">
-                  hello@glame.com
+                <a href="mailto:info@glamebeauty.com" className="text-gray-400 hover:text-white transition-colors">
+                  info@glamebeauty.com
                 </a>
               </div>
               <div className="flex items-center">

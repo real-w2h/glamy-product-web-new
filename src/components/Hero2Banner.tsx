@@ -3,6 +3,7 @@ import Image from "next/image";
 import ImageSlider from "@/components/image-slider";
 import ScrollTriggeredPopup from "@/components/ScrollTriggeredPopup";
 
+
 const Hero2Banner = () => {
   return (
     <section className="hero2-banner bg-gradient-to-r from-pink-50 via-purple-50 to-blue-50 w-full py-20">
@@ -35,7 +36,9 @@ const Hero2Banner = () => {
           </div>
         </div>
         <div className="hero2-image-group" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', maxWidth: 600, minWidth: 320, flex: 1 }}>
-          <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-lg ml-auto">
+          <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-lg ml-auto relative overflow-hidden">
+
+
             <h3 className="text-2xl font-bold mb-4 text-gray-900">Get Started Today</h3>
             <form className="space-y-4">
               <input type="text" placeholder="Full Name" className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-300" />

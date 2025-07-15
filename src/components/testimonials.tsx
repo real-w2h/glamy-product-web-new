@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import GradientScrollText from "@/components/GradientScrollText";
+import Image from "next/image";
 
 export default function Testimonials() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -12,54 +12,62 @@ export default function Testimonials() {
   const testimonialSets = [
     [
       {
-        name: "Sarah Chen",
-        role: "Salon Owner, Miami",
-        initial: "S",
+        name: "Sylvia H Green",
+        role: "Customer",
+        image: "/attached_assets/1_1750152529582.jpg",
         rating: 5,
-        content: "Glame transformed how we manage our salon. Appointments are seamless, and our customer retention improved by 40%!",
-        color: "from-primary to-secondary",
+        content: "There are many variations of long passages available but the content majority have suffered to the editor page when looking at its layout alteration in some injected.",
       },
       {
-        name: "Maria Rodriguez",
-        role: "Makeup Artist, Los Angeles",
-        initial: "M",
+        name: "Gordo Novak",
+        role: "Customer", 
+        image: "/attached_assets/3_1750152529582.jpg",
         rating: 5,
-        content: "As a freelance makeup artist, Glame helps me stay organized and professional. My bookings increased by 60%!",
-        color: "from-secondary to-pink-600",
+        content: "There are many variations of long passages available but the content majority have suffered to the editor page when looking at its layout alteration in some injected.",
       },
       {
-        name: "Dr. James Wilson",
-        role: "Dermatologist, New York",
-        initial: "D",
+        name: "Reid E Butt",
+        role: "Customer",
+        image: "/attached_assets/4_1750152529582.jpg",
         rating: 5,
-        content: "The patient management features are outstanding. We've reduced wait times and improved patient satisfaction significantly.",
-        color: "from-accent to-blue-600",
+        content: "There are many variations of long passages available but the content majority have suffered to the editor page when looking at its layout alteration in some injected.",
+      },
+      {
+        name: "Parker Jimenez",
+        role: "Customer",
+        image: "/attached_assets/10_1750152529582.jpg",
+        rating: 5,
+        content: "There are many variations of long passages available but the content majority have suffered to the editor page when looking at its layout alteration in some injected.",
       },
     ],
     [
       {
+        name: "Sarah Chen",
+        role: "Customer",
+        image: "/attached_assets/1_1750152529582.jpg",
+        rating: 5,
+        content: "Glame transformed how we manage our salon. Appointments are seamless, and our customer retention improved by 40%!",
+      },
+      {
+        name: "Maria Rodriguez",
+        role: "Customer",
+        image: "/attached_assets/3_1750152529582.jpg",
+        rating: 5,
+        content: "As a freelance makeup artist, Glame helps me stay organized and professional. My bookings increased by 60%!",
+      },
+      {
+        name: "Dr. James Wilson",
+        role: "Customer",
+        image: "/attached_assets/4_1750152529582.jpg",
+        rating: 5,
+        content: "The patient management features are outstanding. We've reduced wait times and improved patient satisfaction significantly.",
+      },
+      {
         name: "Aisha Patel",
-        role: "Spa Owner, Chicago",
-        initial: "A",
+        role: "Customer",
+        image: "/attached_assets/10_1750152529582.jpg",
         rating: 5,
         content: "The WhatsApp integration is a game-changer. We stay connected with clients effortlessly!",
-        color: "from-green-500 to-teal-600",
-      },
-      {
-        name: "Lisa Thompson",
-        role: "Beauty Consultant, Dallas",
-        initial: "L",
-        rating: 5,
-        content: "Billing and invoicing used to be a headache. Now it's completely automated and professional!",
-        color: "from-purple-500 to-indigo-600",
-      },
-      {
-        name: "Rachel Kim",
-        role: "Hair Stylist, Seattle",
-        initial: "R",
-        rating: 5,
-        content: "The analytics help me understand my business better. I've optimized my services based on the insights!",
-        color: "from-yellow-500 to-orange-500",
       },
     ],
   ];
@@ -73,12 +81,12 @@ export default function Testimonials() {
   };
 
   useEffect(() => {
-    const interval = setInterval(nextSlide, 5000);
+    const interval = setInterval(nextSlide, 6000);
     return () => clearInterval(interval);
-  }, [nextSlide]);
+  }, []);
 
   return (
-    <section id="testimonials" className="py-20 bg-gray-900">
+    <section id="testimonials" className="py-20 bg-gradient-to-br from-pink-100 via-pink-200 to-pink-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
           className="text-center mb-16"
@@ -87,31 +95,14 @@ export default function Testimonials() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <GradientScrollText
-            as="h2"
-            className="text-3xl lg:text-4xl font-bold mb-4"
-            variant="apple"
-            glow={false}
-          >
-            <span style={{
-              background: 'linear-gradient(90deg, #f6339a, #ad46ff)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              color: 'transparent',
-              display: 'inline-block'
-            }}>
-              Loved by Beauty Professionals Worldwide
+          <div className="mb-4">
+            <span className="text-pink-600 font-semibold text-sm tracking-widest uppercase">
+              TESTIMONIALS
             </span>
-          </GradientScrollText>
-          <GradientScrollText
-            as="p"
-            className="text-xl max-w-3xl mx-auto"
-            variant="purple"
-            glow={true}
-          >
-            Don't just take our word for it. Here's what our customers say about Glame.
-          </GradientScrollText>
+          </div>
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-8">
+            What Our Client <span className="text-pink-600">Say's</span> About Us
+          </h2>
         </motion.div>
 
         <div className="relative">
@@ -119,60 +110,60 @@ export default function Testimonials() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentSlide}
-                className="grid md:grid-cols-3 gap-8"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
                 initial={{ opacity: 0, x: 300 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -300 }}
                 transition={{ duration: 0.5 }}
               >
                 {testimonialSets[currentSlide].map((testimonial, index) => (
-                  <div key={index} className="bg-white p-8 rounded-2xl shadow-xl">
-                    <div className="flex items-center mb-6">
-                      <div className={`w-12 h-12 bg-gradient-to-r ${testimonial.color} rounded-full flex items-center justify-center`}>
-                        <span className="text-white font-bold text-lg">{testimonial.initial}</span>
+                  <motion.div 
+                    key={index} 
+                    className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                  >
+                    <div className="flex items-center mb-4">
+                      <div className="w-16 h-16 rounded-full overflow-hidden mr-4 ring-2 ring-pink-200">
+                        <Image
+                          src={testimonial.image}
+                          alt={testimonial.name}
+                          width={64}
+                          height={64}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
-                      <div className="ml-4">
-                        <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
-                        <p className="text-gray-600 text-sm">{testimonial.role}</p>
+                      <div>
+                        <h4 className="font-bold text-gray-900 text-lg">{testimonial.name}</h4>
+                        <p className="text-pink-600 text-sm font-medium">{testimonial.role}</p>
                       </div>
                     </div>
-                    <div className="flex text-yellow-400 mb-4">
+                    
+                    <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                      {testimonial.content}
+                    </p>
+                    
+                    <div className="flex text-pink-500">
                       {[...Array(testimonial.rating)].map((_, i) => (
                         <Star key={i} className="h-4 w-4 fill-current" />
                       ))}
                     </div>
-                    <p className="text-gray-700">"{testimonial.content}"</p>
-                  </div>
+                  </motion.div>
                 ))}
               </motion.div>
             </AnimatePresence>
           </div>
 
-          {/* Navigation Buttons */}
-          <Button
-            variant="outline"
-            size="icon"
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/20 backdrop-blur-sm text-white border-white/30 hover:bg-white/30"
-            onClick={prevSlide}
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/20 backdrop-blur-sm text-white border-white/30 hover:bg-white/30"
-            onClick={nextSlide}
-          >
-            <ChevronRight className="h-4 w-4" />
-          </Button>
-
           {/* Dots Indicator */}
-          <div className="flex justify-center mt-8 space-x-2">
+          <div className="flex justify-center mt-12 space-x-3">
             {testimonialSets.map((_, index) => (
               <button
                 key={index}
-                className={`w-3 h-3 rounded-full transition-opacity ${
-                  index === currentSlide ? "bg-white" : "bg-white/50 hover:bg-white/80"
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  index === currentSlide 
+                    ? "bg-pink-600 scale-125" 
+                    : "bg-pink-300 hover:bg-pink-400"
                 }`}
                 onClick={() => setCurrentSlide(index)}
               />

@@ -10,7 +10,12 @@ import {
   CarouselNext,
 } from "./ui/carousel";
 
-const images = [
+interface MultiImageSliderProps {
+  background?: string;
+  images?: string[];
+}
+
+const defaultImages = [
   "/attached_assets/1_1750152529582.jpg",
   "/attached_assets/10_1750152529582.jpg",
   "/attached_assets/3_1750152529582.jpg",
@@ -20,10 +25,12 @@ const images = [
   "/attached_assets/7.png",
 ];
 
-export default function MultiImageSlider() {
+export default function MultiImageSlider({ background = "bg-white", images = defaultImages }: MultiImageSliderProps) {
   return (
-    <div className="w-full flex justify-center items-center py-8 bg-white">
+    <div className={`w-full flex justify-center items-center py-8 ${background}`}>
       <div className="relative w-full max-w-[1600px]">
+
+        
         <Carousel opts={{ align: "start", slidesToScroll: 1, loop: true }}>
           <CarouselContent className="-ml-4">
             {images.map((src, idx) => (
