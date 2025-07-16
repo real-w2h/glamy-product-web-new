@@ -1,27 +1,24 @@
 "use client";
 
 import Header from "@/components/header";
-import HeroBanner from "@/components/hero-banner";
+import Footer from "@/components/footer";
 import Hero2Banner from "@/components/Hero2Banner";
-import HerobannerFinal from "@/components/HerobannerFinal";
-import GrowSalonSection from "@/components/GrowSalonSection";
-import ImageSlider from "@/components/image-slider";
 import Services from "@/components/services";
-import Features from "@/components/features";
-import GlameFeaturesSection from "@/components/GlameFeaturesSection";
-import GlameDashboardBanner from "@/components/GlameDashboardBanner";
 import Testimonials from "@/components/testimonials";
 import CTABanner from "@/components/cta-banner";
-import Footer from "@/components/footer";
-import WorkProcessSection from "@/components/WorkProcessSection";
-// import PieChartSection from "@/components/PieChartSection";
-import FormSection from "@/components/FormSection";
-// import BusinessReportSection from "@/components/BusinessReportSection";
+import Features from "@/components/features";
+import LeadGeneration from "@/components/lead-generation";
+import GlameFeaturesSection from "@/components/GlameFeaturesSection";
+import SalonShowcaseSection from "@/components/SalonShowcaseSection";
+import GlameDashboardBanner from "@/components/GlameDashboardBanner";
+import PieChartSection from "@/components/PieChartSection";
+import BusinessReportSection from "@/components/BusinessReportSection";
+import GrowSalonSection from "@/components/GrowSalonSection";
 import ScrollTriggeredPopup from "@/components/ScrollTriggeredPopup";
 import MultiImageSlider from "../components/MultiImageSlider";
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-r from-pink-50 via-purple-50 to-blue-50">
       <Header />
       
       <div className="pt-16">

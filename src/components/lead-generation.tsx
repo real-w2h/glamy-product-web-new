@@ -13,6 +13,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { Calendar, Shield, Star, Clock, ChevronLeft, ChevronRight } from "lucide-react";
 import GradientScrollText from "@/components/GradientScrollText";
+import Link from "next/link";
 
 export default function LeadGeneration() {
   const { toast } = useToast();
@@ -177,14 +178,16 @@ export default function LeadGeneration() {
                   )}
                 />
 
-                <Button
-                  type="submit"
-                  size="lg"
-                  className="w-full gradient-primary text-white hover:shadow-xl transition-all duration-300"
-                  disabled={createLeadMutation.isPending}
-                >
-                  {createLeadMutation.isPending ? "Submitting..." : "Start Free Trial"}
-                </Button>
+                <Link href="/signup">
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className="w-full gradient-primary text-white hover:shadow-xl transition-all duration-300"
+                    disabled={createLeadMutation.isPending}
+                  >
+                    {createLeadMutation.isPending ? "Submitting..." : "Start Free Trial"}
+                  </Button>
+                </Link>
 
                 <p className="text-sm text-gray-600 text-center">
                   No credit card required. 14-day free trial.

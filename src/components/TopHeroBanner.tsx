@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function TopHeroBanner() {
   return (
@@ -30,7 +31,9 @@ export default function TopHeroBanner() {
       {/* Call to Action Buttons */}
       <div className="flex flex-row gap-6 justify-center items-center w-full max-w-2xl mx-auto mb-8">
         <button className="rounded-full bg-pink-500 hover:bg-pink-600 text-white font-semibold px-8 py-3 shadow-lg transition-all text-base border-2 border-pink-500">START RANKING NOW</button>
-        <button className="rounded-full bg-white border-2 border-black text-black font-semibold px-8 py-3 shadow-lg transition-all text-base hover:bg-gray-100">GET STARTED NOW</button>
+        <Link href="/signup">
+          <button className="rounded-full bg-white border-2 border-black text-black font-semibold px-8 py-3 shadow-lg transition-all text-base hover:bg-gray-100">GET STARTED NOW</button>
+        </Link>
       </div>
       {/* Decorative/Stat Images */}
       {/* Left curly arrow and user-with-icons */}

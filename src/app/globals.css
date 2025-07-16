@@ -3,6 +3,24 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Remove default margins and padding for full height pages */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+/* Reset for signup page specifically */
+.signup-page {
+  margin: 0;
+  padding: 0;
+}
+
+.signup-page * {
+  box-sizing: border-box;
+}
+
 /* Header and Navigation Fixes */
 .header-fixed {
   position: fixed;
@@ -95,6 +113,12 @@ body {
   animation: gradientBG 18s ease infinite;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@media (min-width: 1024px) {
+  body {
+    padding-top: 6rem;
+  }
 }
 
 @keyframes gradientBG {

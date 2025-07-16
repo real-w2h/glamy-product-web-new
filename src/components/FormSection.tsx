@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 
 export default function FormSection() {
   const [formData, setFormData] = useState({
@@ -98,12 +99,14 @@ export default function FormSection() {
 
             {/* Submit Button */}
             <div className="pt-4">
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold py-4 px-8 rounded-2xl shadow-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-[1.02] text-lg"
-              >
-                Start Free Trial
-              </button>
+              <Link href="/signup">
+                <button
+                  type="submit"
+                  className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold py-4 px-8 rounded-2xl shadow-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-[1.02] text-lg"
+                >
+                  Start Free Trial
+                </button>
+              </Link>
             </div>
 
             {/* Bottom Text */}

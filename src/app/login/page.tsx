@@ -18,7 +18,6 @@ import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "@/lib/firebaseAuth";
 
-
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const { toast } = useToast();
@@ -46,7 +45,6 @@ export default function Login() {
           title: "Welcome back!",
           description: "You have successfully logged in.",
         });
-        // Redirect to dashboard or home
         window.location.href = "/dashboard";
       } else {
         toast({
@@ -65,7 +63,6 @@ export default function Login() {
     },
   });
 
- 
   const onSubmit = (data: LoginData) => {
     loginMutation.mutate(data);
   };
@@ -80,12 +77,10 @@ export default function Login() {
       const res = await signInWithPopup(auth, provider);
       if (res.user.email) {
         const token = await res.user.getIdToken();
-        // You can store the token or use it as needed
         toast({
           title: "Google Login Successful",
           description: `Welcome, ${res.user.email}`,
         });
-        // Redirect or further logic here
         router.push("/");
       } else {
         toast({
@@ -106,150 +101,172 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-purple-200 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        {/* Logo */}
-        <div className="text-center mb-5">
-          <Link href="/">
-          <div className="flex items-center justify-center">
-              <div className="flex items-center">
-              <img src="/logo.png" alt="Logo" className="w-40 h-15 rounded-lg object-cover" />
-            </div>
-              </div>
-          </Link>
-          <p className="text-gray-600">Welcome back to your beauty business</p>
+    <div className="min-h-screen flex">
+      {/* Left side - Image */}
+      <div className="hidden lg:flex lg:w-1/2 relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-teal-400 via-teal-500 to-teal-600">
+          <div className="absolute inset-0 bg-black/20"></div>
+          <img 
+            src="/attached_assets/hero-img-1.png" 
+            alt="Beauty Business" 
+            className="w-full h-full object-cover mix-blend-overlay"
+          />
         </div>
+        <div className="relative z-10 flex items-center justify-center w-full">
+          <div className="text-center text-white p-8">
+            <h1 className="text-4xl font-bold mb-4">Welcome Back!</h1>
+            <p className="text-xl opacity-90">Continue your beauty business journey</p>
+          </div>
+        </div>
+        <div className="absolute bottom-4 left-4 text-white/70 text-sm">
+          Transform your beauty business with Glame
+        </div>
+      </div>
 
-        <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold text-center">Sign In</CardTitle>
-            <CardDescription className="text-center">
-              Enter your credentials to access your account
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            {/* Social Login Buttons */}
-            <div className="">
-              <Button
-                variant="outline"
-                className="w-full h-12 border-gray-300 hover:bg-gray-50"
-                onClick={handleGoogleLogin}
-                disabled={googleLoading}
-              >
-              <img src="/google.png" alt="Logo" className="mr-3 h-6 w-6 text-red-500" />
-                {googleLoading ? "Connecting..." : "Continue with Google"}
-              </Button>
-            </div>
-
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <Separator />
+      {/* Right side - Form */}
+      <div className="flex-1 flex items-center justify-center px-8 py-4 bg-gradient-to-br from-purple-50 via-pink-50 to-purple-100 lg:w-1/2">
+        <div className="w-full max-w-md">
+          {/* Logo */}
+          <div className="text-center mb-4">
+            <Link href="/">
+              <div className="flex items-center justify-center">
+                <img src="/logo.png" alt="Logo" className="w-40 h-15 rounded-lg object-cover" />
               </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-white px-14 text-gray-500">Or continue with email</span>
-              </div>
-            </div>
+            </Link>
+            <p className="text-gray-600 mt-2">Welcome back to your beauty business</p>
+          </div>
 
-            {/* Email/Password Form */}
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email Address</FormLabel>
-                      <FormControl>
-                        <div className="relative">
-                          <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                          <Input 
-                            type="email" 
-                            placeholder="Enter your email" 
-                            className="pl-10 h-12"
-                            {...field} 
-                          />
-                        </div>
-                      </FormControl>
-                      <FormMessage className="text-red-600" />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                        <div className="relative">
-                          <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                          <Input 
-                            type={showPassword ? "text" : "password"}
-                            placeholder="Enter your password" 
-                            className="pl-10 pr-10 h-12"
-                            {...field} 
-                          />
-                          <button
-                            type="button"
-                            className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
-                            onClick={() => setShowPassword(!showPassword)}
-                          >
-                            {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                          </button>
-                        </div>
-                      </FormControl>
-                      <FormMessage className="text-red-600" />
-                    </FormItem>
-                  )}
-                />
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <input
-                      id="remember"
-                      type="checkbox"
-                      className="rounded border-gray-300 text-primary focus:ring-primary"
-                    />
-                    <label htmlFor="remember" className="text-sm text-gray-600">
-                      Remember me
-                    </label>
-                  </div>
-                  <Link href="/forgot-password">
-                    <span className="text-sm text-primary hover:underline cursor-pointer">
-                      Forgot password?
-                    </span>
-                  </Link>
-                </div>
-
+          <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
+            <CardHeader className="space-y-1 pb-4">
+              <CardTitle className="text-2xl font-bold text-center">Sign In</CardTitle>
+              <CardDescription className="text-center">
+                Enter your credentials to access your account
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6 px-8 pb-6">
+              {/* Social Login Buttons */}
+              <div className="">
                 <Button
-                  type="submit"
-                  size="lg"
-                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-lg hover:shadow-xl transition-all h-12 font-semibold"
-                  disabled={loginMutation.isPending}
+                  variant="outline"
+                  className="w-full h-12 border-gray-300 hover:bg-gray-50"
+                  onClick={handleGoogleLogin}
+                  disabled={googleLoading}
                 >
-                  {loginMutation.isPending ? "Signing In..." : "Sign In"}
+                  <img src="/google.png" alt="Google" className="mr-3 h-6 w-6" />
+                  {googleLoading ? "Connecting..." : "Continue with Google"}
                 </Button>
-              </form>
-            </Form>
+              </div>
 
-            <div className="text-center">
-              <span className="text-gray-600">Don't have an account? </span>
-              <Link href="/signup">
-                <span className="text-primary hover:underline font-medium cursor-pointer">
-                  Sign up
-                </span>
-              </Link>
-            </div>
-          </CardContent>
-        </Card>
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <Separator />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-white px-14 text-gray-500">Or continue with email</span>
+                </div>
+              </div>
 
-        <div className="text-center mt-6">
-          <Link href="/">
-            <span className="text-gray-500 hover:text-gray-700 cursor-pointer">
-              ← Back to Home
-            </span>
-          </Link>
+              {/* Email/Password Form */}
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email Address</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                            <Input 
+                              type="email" 
+                              placeholder="Enter your email" 
+                              className="pl-10 h-12"
+                              {...field} 
+                            />
+                          </div>
+                        </FormControl>
+                        <FormMessage className="text-red-600" />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                            <Input 
+                              type={showPassword ? "text" : "password"}
+                              placeholder="Enter your password" 
+                              className="pl-10 pr-10 h-12"
+                              {...field} 
+                            />
+                            <button
+                              type="button"
+                              className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                              onClick={() => setShowPassword(!showPassword)}
+                            >
+                              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                            </button>
+                          </div>
+                        </FormControl>
+                        <FormMessage className="text-red-600" />
+                      </FormItem>
+                    )}
+                  />
+
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <input
+                        id="remember"
+                        type="checkbox"
+                        className="rounded border-gray-300 text-primary focus:ring-primary"
+                      />
+                      <label htmlFor="remember" className="text-sm text-gray-600">
+                        Remember me
+                      </label>
+                    </div>
+                    <Link href="/forgot-password">
+                      <span className="text-sm text-primary hover:underline cursor-pointer">
+                        Forgot password?
+                      </span>
+                    </Link>
+                  </div>
+
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-lg hover:shadow-xl transition-all h-12 font-semibold"
+                    disabled={loginMutation.isPending}
+                  >
+                    {loginMutation.isPending ? "Signing In..." : "Sign In"}
+                  </Button>
+                </form>
+              </Form>
+
+              <div className="text-center">
+                <span className="text-gray-600">Don't have an account? </span>
+                <Link href="/signup">
+                  <span className="text-primary hover:underline font-medium cursor-pointer">
+                    Sign up
+                  </span>
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="text-center mt-3">
+            <Link href="/">
+              <span className="text-gray-500 hover:text-gray-700 cursor-pointer">
+                ← Back to Home
+              </span>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

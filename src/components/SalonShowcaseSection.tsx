@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function SalonShowcaseSection() {
   return (
@@ -71,9 +72,11 @@ export default function SalonShowcaseSection() {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold px-8 py-3 rounded-lg shadow-lg hover:from-purple-600 hover:to-pink-600 transition-all text-lg">
-                  Start Free Trial
-                </button>
+                <Link href="/signup">
+                  <button className="bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold px-8 py-3 rounded-lg shadow-lg hover:from-purple-600 hover:to-pink-600 transition-all text-lg">
+                    Start Free Trial
+                  </button>
+                </Link>
                 <button className="border-2 border-white text-white font-semibold px-8 py-3 rounded-lg hover:bg-white hover:text-gray-900 transition-all text-lg">
                   Watch Demo
                 </button>

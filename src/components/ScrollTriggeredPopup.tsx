@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function ScrollTriggeredPopup({ autoOpen = false }: { autoOpen?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,7 +33,7 @@ export default function ScrollTriggeredPopup({ autoOpen = false }: { autoOpen?: 
         const scrollTop = window.scrollY;
         const docHeight = document.documentElement.scrollHeight - window.innerHeight;
         const scrollPercent = (scrollTop / docHeight) * 100;
-        if (scrollPercent >= 65 && !hasShown) {
+        if (scrollPercent >= 60 && !hasShown) {
           setIsOpen(true);
           setHasShown(true);
         }
@@ -70,14 +71,16 @@ export default function ScrollTriggeredPopup({ autoOpen = false }: { autoOpen?: 
         }}
       >
         {/* Left: Image */}
-        <div className="hidden md:block md:w-1/2 h-full min-h-[400px] p-0 m-0 popup-image-section">
+        <div className="hidden md:block md:w-1/2 h-full min-h-[400px] p-0 m-0 popup-image-section relative">
           <Image
-            src="/popup_section_Glame.png"
-            alt="Popup Section"
+            src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1926&q=80"
+            alt="Beautiful woman in spa wellness setting"
             fill
             className="object-cover w-full h-full"
             priority
           />
+          {/* Overlay gradient for better text readability if needed */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
         </div>
         {/* Right: Form */}
         <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-8 md:p-12 bg-white relative">
@@ -130,12 +133,14 @@ export default function ScrollTriggeredPopup({ autoOpen = false }: { autoOpen?: 
                 className="w-full text-base px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-400"
               />
             </div>
-            <Button
-              type="submit"
-              className="w-full mt-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold py-3 rounded-lg text-lg transition-all duration-200 transform hover:scale-105 shadow-md"
-            >
-              Start Free Trial
-            </Button>
+            <Link href="/signup">
+              <Button
+                type="submit"
+                className="w-full mt-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold py-3 rounded-lg text-lg transition-all duration-200 transform hover:scale-105 shadow-md"
+              >
+                Start Free Trial
+              </Button>
+            </Link>
           </form>
           {/* Bottom text */}
           <p className="text-xs text-gray-500 text-center mt-6">

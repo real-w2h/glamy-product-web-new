@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { motion } from "framer-motion";
 import { 
   BarChart3,
@@ -11,6 +12,7 @@ import {
   Star,
   ArrowRight
 } from "lucide-react";
+import Link from "next/link";
 
 export default function GlameDashboardBanner() {
   const dashboardFeatures = [
@@ -52,18 +54,15 @@ export default function GlameDashboardBanner() {
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
             Your command center for salon success. Everything you need, beautifully organized and easy to use.
           </p>
-          <div className="flex items-center justify-center space-x-6 text-sm text-gray-500">
-            <div className="flex items-center">
-              <Monitor className="h-4 w-4 mr-2 text-blue-500" />
-              <span>Real-time Monitoring</span>
+          <div className="flex items-center justify-center space-x-8 text-base">
+            <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-2 rounded-full font-semibold shadow-lg">
+              Real-time Monitoring
             </div>
-            <div className="flex items-center">
-              <Zap className="h-4 w-4 mr-2 text-yellow-500" />
-              <span>Lightning Fast</span>
+            <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-4 py-2 rounded-full font-semibold shadow-lg">
+              Lightning Fast
             </div>
-            <div className="flex items-center">
-              <Star className="h-4 w-4 mr-2 text-pink-500" />
-              <span>User Friendly</span>
+            <div className="bg-gradient-to-r from-pink-500 to-pink-600 text-white px-4 py-2 rounded-full font-semibold shadow-lg">
+              User Friendly
             </div>
           </div>
         </motion.div>
@@ -100,10 +99,12 @@ export default function GlameDashboardBanner() {
               See how Glame's dashboard transforms your salon operations. Get instant access to powerful insights and automation tools.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300 flex items-center justify-center">
-                Explore Dashboard
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </button>
+              <Link href="/signup">
+                <button className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300 flex items-center justify-center">
+                  Explore Dashboard
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </button>
+              </Link>
               <button className="border-2 border-pink-500 text-pink-500 px-8 py-3 rounded-full font-semibold hover:bg-pink-50 transition-all duration-300">
                 Watch Demo
               </button>

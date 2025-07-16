@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import GradientScrollText from "@/components/GradientScrollText";
 // import SalonShowcaseSection from "@/components/SalonShowcaseSection";
 
@@ -17,6 +18,7 @@ export default function Services() {
       borderColor: "border-purple-200",
       iconBg: "from-primary to-purple-600",
       buttonColor: "bg-primary hover:bg-purple-700",
+      link: "/salon-management"
     },
     {
       title: "Makeup Artists",
@@ -27,6 +29,7 @@ export default function Services() {
       borderColor: "border-pink-200",
       iconBg: "from-secondary to-pink-600",
       buttonColor: "bg-secondary hover:bg-pink-600",
+      link: "/clinic-management"
     },
     {
       title: "Dermatologists",
@@ -37,6 +40,7 @@ export default function Services() {
       borderColor: "border-blue-200",
       iconBg: "from-accent to-blue-600",
       buttonColor: "bg-accent hover:bg-blue-600",
+      link: "/dermatology"
     },
   ];
 
@@ -70,9 +74,11 @@ export default function Services() {
                   </li>
                 ))}
               </ul>
-              <div className="mt-auto text-sm font-semibold pt-2 select-none cursor-default text-[#f6339a]">
-                Learn More →
-              </div>
+              <Link href={service.link} className="mt-auto">
+                <div className="text-sm font-semibold pt-2 cursor-pointer text-[#f6339a] hover:text-[#e91e63] transition-colors duration-200">
+                  Learn More →
+                </div>
+              </Link>
             </div>
           ))}
         </div>

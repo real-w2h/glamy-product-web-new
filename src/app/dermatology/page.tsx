@@ -26,6 +26,7 @@ import {
   User,
   AlertCircle
 } from "lucide-react";
+import Link from "next/link";
 
 export default function DermatologyPage() {
   const features = [
@@ -103,10 +104,12 @@ export default function DermatologyPage() {
               Glame CRM aapke liye hai — tailored for dermatologists
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors flex items-center justify-center">
-                Start Free Trial
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </button>
+              <Link href="/signup">
+                <button className="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors flex items-center justify-center">
+                  Start Free Trial
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </button>
+              </Link>
               <button className="border border-green-600 text-green-600 px-8 py-3 rounded-lg font-semibold hover:bg-green-50 transition-colors">
                 Watch Demo
               </button>
@@ -218,10 +221,12 @@ export default function DermatologyPage() {
               Join thousands of dermatologists who are already using Glame CRM to focus more on patient care
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-green-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors flex items-center justify-center">
-                Start Free Trial
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </button>
+              <Link href="/signup">
+                <button className="bg-white text-green-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors flex items-center justify-center">
+                  Start Free Trial
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </button>
+              </Link>
               <button className="border border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition-colors">
                 Contact Sales
               </button>

@@ -1,13 +1,10 @@
 import React from "react";
-import Image from "next/image";
-import ImageSlider from "@/components/image-slider";
-import ScrollTriggeredPopup from "@/components/ScrollTriggeredPopup";
+import Link from "next/link";
 
 
 const Hero2Banner = () => {
   return (
     <section className="hero2-banner bg-gradient-to-r from-pink-50 via-purple-50 to-blue-50 w-full py-20">
-      <ScrollTriggeredPopup autoOpen={true} />
       <div className="hero2-content" style={{ flexWrap: 'wrap', gap: '48px', background: 'transparent' }}>
         <div className="hero2-title-group" style={{ minWidth: 320, flex: 1 }}>
           <h1 className="main-title">
@@ -20,16 +17,18 @@ const Hero2Banner = () => {
             <li className="flex items-center text-base" style={{ color: '#000' }}><span className="mr-2 text-green-400">⏱️</span> Setup in under 10 minutes</li>
           </ul>
           <div className="hero2-buttons">
-            <button
-              className="hero2-btn primary transition-transform duration-200 ease-in-out"
-              style={{ willChange: 'transform' }}
-              onMouseDown={e => e.currentTarget.style.transform = 'scale(0.95)'}
-              onMouseUp={e => e.currentTarget.style.transform = 'scale(1.08)'}
-              onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-              onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.08)'}
-            >
-              START FREE TRIAL
-            </button>
+            <Link href="/signup">
+              <button
+                className="hero2-btn primary transition-transform duration-200 ease-in-out"
+                style={{ willChange: 'transform' }}
+                onMouseDown={e => e.currentTarget.style.transform = 'scale(0.95)'}
+                onMouseUp={e => e.currentTarget.style.transform = 'scale(1.08)'}
+                onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.08)'}
+              >
+                START FREE TRIAL
+              </button>
+            </Link>
             <button className="hero2-btn secondary">
               HOW IT WORKS <span className="arrow">↗</span>
             </button>
@@ -54,7 +53,9 @@ const Hero2Banner = () => {
                 <option value="nail_salon">Nail Salon</option>
                 <option value="other">Other</option>
               </select>
-              <button type="submit" className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold py-3 rounded-lg shadow-lg hover:from-purple-600 hover:to-pink-600 transition-all mt-2 text-lg">Start Free Trial</button>
+              <Link href="/signup">
+                <button type="submit" className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold py-3 rounded-lg shadow-lg hover:from-purple-600 hover:to-pink-600 transition-all mt-2 text-lg">Start Free Trial</button>
+              </Link>
               <p className="text-xs text-gray-500 text-center mt-2">No credit card required. 14-day free trial.</p>
             </form>
           </div>

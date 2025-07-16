@@ -25,7 +25,7 @@ const defaultImages = [
   "/attached_assets/7.png",
 ];
 
-export default function MultiImageSlider({ background = "bg-white", images = defaultImages }: MultiImageSliderProps) {
+export default function MultiImageSlider({ background = "", images = defaultImages }: MultiImageSliderProps) {
   return (
     <div className={`w-full flex justify-center items-center py-8 ${background}`}>
       <div className="relative w-full max-w-[1600px]">

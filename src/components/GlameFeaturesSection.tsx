@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { motion } from "framer-motion";
 import { 
   Calendar, 
@@ -26,6 +27,7 @@ import {
 } from "lucide-react";
 import GradientScrollText from "@/components/GradientScrollText";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
+import Link from "next/link";
 
 export default function GlameFeaturesSection() {
   const coreFeatures = [
@@ -315,9 +317,11 @@ export default function GlameFeaturesSection() {
             Start your free trial today and experience the difference.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300">
-              Start Free Trial
-            </button>
+            <Link href="/signup">
+              <button className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300">
+                Start Free Trial
+              </button>
+            </Link>
             <button className="border-2 border-pink-500 text-pink-500 px-8 py-3 rounded-full font-semibold hover:bg-pink-50 transition-all duration-300">
               Schedule Demo
             </button>

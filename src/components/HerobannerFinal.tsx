@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Lottie from "lottie-react";
 import WorkProcessSection from "./WorkProcessSection";
+import Link from "next/link";
 
 const HerobannerFinal = () => {
   const [sparkleAnimation, setSparkleAnimation] = useState(null);
@@ -237,22 +238,24 @@ const HerobannerFinal = () => {
             gap: '20px',
             marginBottom: '60px'
           }}>
-            <button className="hero-final-btn primary" style={{
-              padding: '18px 36px',
-              borderRadius: '50px',
-              fontSize: '18px',
-              fontFamily: 'GeneralSans-Bold, Arial, sans-serif',
-              fontWeight: 700,
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              border: 'none',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              background: 'linear-gradient(to right, #9333ea, #ec4899)',
-              color: '#fff',
-              boxShadow: '0 10px 25px rgba(147, 51, 234, 0.3)'
-            }}>START FREE TRIAL</button>
+            <Link href="/signup">
+              <button className="hero-final-btn primary" style={{
+                padding: '18px 36px',
+                borderRadius: '50px',
+                fontSize: '18px',
+                fontFamily: 'GeneralSans-Bold, Arial, sans-serif',
+                fontWeight: 700,
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                border: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                background: 'linear-gradient(to right, #9333ea, #ec4899)',
+                color: '#fff',
+                boxShadow: '0 10px 25px rgba(147, 51, 234, 0.3)'
+              }}>START FREE TRIAL</button>
+            </Link>
             <button className="hero-final-btn secondary" style={{
               padding: '18px 36px',
               borderRadius: '50px',

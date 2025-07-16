@@ -1,6 +1,5 @@
-now cimport React from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import CompleteSalonAutomationHero from "@/components/CompleteSalonAutomationHero";
 
 export default function CompleteSalonAutomationHero() {
   return (

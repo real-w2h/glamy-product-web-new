@@ -25,11 +25,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="h-full">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-full`}
       >
-        <div className="min-h-screen bg-gradient-to-r from-pink-50 via-purple-50 to-blue-50">
+        <div className="h-full">
           <Providers>
             {children}
             <Toaster />

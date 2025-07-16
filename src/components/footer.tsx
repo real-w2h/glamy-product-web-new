@@ -12,7 +12,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 items-start gap-12 mb-12">
           <div>
             <div className="flex items-center mb-6">
-            <img src="/logo.png" alt="Logo" className="w-40 h-10 rounded-lg object-cover" />
+            <img src="/logo.png" alt="Logo" className="w-48 h-12 rounded-lg object-cover" />
             </div>
             <p className="text-gray-400 mb-6">
               Empowering beauty professionals with cutting-edge technology to grow their business and delight their customers.
