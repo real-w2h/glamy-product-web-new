@@ -73,7 +73,7 @@ export default function Signup() {
       const response = await apiRequest("POST", "/api/auth/signup", data);
       return response.json();
     },
-    onSuccess: (data: { success: boolean; token?: string; user?: any; message?: string; generatedDomain?: string }) => {
+    onSuccess: (data: {SignupResponse}) => {
       if (data.success && data.token && data.user) {
         localStorage.setItem("authToken", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
@@ -112,7 +112,6 @@ export default function Signup() {
       });
       const res = await signInWithPopup(auth, provider);
       if (res.user.email) {
-        const token = await res.user.getIdToken();
         toast({
           title: "Google Login Successful",
           description: `Welcome, ${res.user.email}`,
@@ -200,7 +199,7 @@ export default function Signup() {
         const data = await response.json();
         console.log("Signup API response aarha h :", data);
         
-        if (response.ok && data.success) {
+        if (response.ok) {
           toast({
             title: "Account Created",
             description: "Your account has been created successfully.",
@@ -481,7 +480,7 @@ export default function Signup() {
                   /* OTP Section */
                   <div className="space-y-6">
                     {signupFormData && (
-                      <div className="bg-gray-50 rounded-lg p-4">
+                      <div className="rounded-lg p-4">
                         <div className="flex justify-between items-center mb-3">
                           <h3 className="font-semibold text-gray-800">Account Details</h3>
                           <button

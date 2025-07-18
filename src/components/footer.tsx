@@ -1,4 +1,5 @@
 import { Facebook, Twitter, Linkedin, Instagram, Mail, Phone, MapPin } from "lucide-react";
+import Image from "next/image";
 
 export default function Footer() {
   const scrollToSection = (sectionId: string) => {

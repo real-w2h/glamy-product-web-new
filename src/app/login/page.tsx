@@ -37,7 +37,7 @@ export default function Login() {
       const response = await apiRequest("POST", "/api/auth/login", data);
       return response.json();
     },
-    onSuccess: (data: { success: boolean; token?: string; user?: any; message?: string }) => {
+    onSuccess: (data: LoginResponse) => {
       if (data.success && data.token && data.user) {
         localStorage.setItem("authToken", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));

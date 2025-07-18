@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
@@ -22,7 +22,6 @@ export default function GradientScrollText({
   ...rest
 }: GradientScrollTextProps) {
   const ref = useRef<HTMLElement | null>(null);
-  const [isInView, setIsInView] = useState(false);
 
   useEffect(() => {
     if (ref.current && scrollEffect) {
@@ -33,10 +32,6 @@ export default function GradientScrollText({
           start: "top 80%",
           end: "bottom 20%",
           scrub: 1,
-          onEnter: () => setIsInView(true),
-          onLeave: () => setIsInView(false),
-          onEnterBack: () => setIsInView(true),
-          onLeaveBack: () => setIsInView(false),
         },
       });
 

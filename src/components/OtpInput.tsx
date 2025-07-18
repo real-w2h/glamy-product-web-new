@@ -21,7 +21,7 @@ const OtpInput: React.FC<OtpInputProps> = ({
   buttonText = "Create Account",
 }) => {
   return (
-    <form onSubmit={onSubmit} className="bg-white rounded-xl shadow-xl p-8 w-full max-w-sm space-y-6">
+    <form onSubmit={onSubmit} className="bg-white rounded-xl w-full max-w-sm space-y-6">
       <div>
         <label className="block text-lg font-bold text-gray-900 mb-2 text-center">{label}</label>
         <Input

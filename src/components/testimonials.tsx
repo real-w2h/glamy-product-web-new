@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -72,9 +72,9 @@ export default function Testimonials() {
     ],
   ];
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % testimonialSets.length);
-  };
+  }, [testimonialSets.length]);
 
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + testimonialSets.length) % testimonialSets.length);
