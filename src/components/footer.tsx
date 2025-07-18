@@ -1,5 +1,6 @@
 import { Facebook, Twitter, Linkedin, Instagram, Mail, Phone, MapPin } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
   const scrollToSection = (sectionId: string) => {
@@ -85,10 +86,14 @@ export default function Footer() {
                 <a href="#" className="text-gray-400 hover:text-white transition-colors">API Reference</a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</a>
+                <Link href="/privacy-policy" className="text-gray-400 hover:text-white transition-colors">
+                  Privacy Policy
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">Terms of Service</a>
+                <Link href="/terms-of-service" className="text-gray-400 hover:text-white transition-colors">
+                  Terms of Service
+                </Link>
               </li>
             </ul>
           </div>
