@@ -124,7 +124,7 @@ export default function Header() {
           {/* Logo */}
           <div className="flex-shrink-0">
             <div className="flex items-center">
-              <img src="/logo.png" alt="Logo" className="h-20 w-auto sm:h-24 md:h-28 lg:h-32 rounded-lg object-contain" />
+              <img src="/logo.png" alt="Logo" className="h-16 w-auto sm:h-14 md:h-16 lg:h-16 rounded-lg object-contain" />
               {/* <span className="ml-2 text-2xl font-bold text-gray-900">Glame</span> */}
             </div>
           </div>

@@ -10,15 +10,19 @@ import { Separator } from "@/components/ui/separator";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema, type SignupData } from "@/shared/schema";
-import { useMutation } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff, Mail, Lock, User, Briefcase, ArrowLeft, CheckCircle } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, User, Briefcase, ArrowLeft, CheckCircle, ChevronDown } from "lucide-react";
 import OtpInput from "@/components/OtpInput";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "@/lib/firebaseAuth";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const backgroundImages = [
   "/attached_assets/Salon_img.png",
@@ -37,6 +41,24 @@ const features = [
   "Marketing tools"
 ];
 
+const businessTypes = [
+  { value: "salon", label: "Salon" },
+  { value: "makeup_artist", label: "Makeup Artist" },
+  { value: "dermatologist", label: "Dermatologist" },
+  { value: "spa", label: "Spa" },
+  { value: "barber_shop", label: "Barber Shop" },
+  { value: "nail_salon", label: "Nail Salon" },
+  { value: "other", label: "Other" },
+];
+
+interface SignupResponse {
+  success: boolean;
+  token?: string;
+  user?: any;
+  generatedDomain?: string;
+  message?: string;
+}
+
 export default function Signup() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
@@ -46,6 +68,9 @@ export default function Signup() {
   const [otp, setOtp] = useState("");
   const [signupFormData, setSignupFormData] = useState<SignupData | null>(null);
   const [googleLoading, setGoogleLoading] = useState(false);
+  const [resendLoading, setResendLoading] = useState(false);
+  const [sendingOtp, setSendingOtp] = useState(false);
+  const [formLoading, setFormLoading] = useState(false);
   const router = useRouter();
 
   // Auto-change images every 4 seconds
@@ -68,55 +93,57 @@ export default function Signup() {
     },
   });
 
-  const signupMutation = useMutation({
-    mutationFn: async (data: SignupData) => {
-      const response = await apiRequest("POST", "/api/auth/signup", data);
-      return response.json();
-    },
-    onSuccess: (data: {SignupResponse}) => {
-      if (data.success && data.token && data.user) {
-        localStorage.setItem("authToken", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        toast({
-          title: "Welcome to Glame!",
-          description: "Your account has been created successfully.",
-        });
-        if (data.generatedDomain && data.token) {
-          window.location.href = 'https://' + data.generatedDomain + '/login?token=' + data.token;
-        } else {
-          window.location.href = "/dashboard";
-        }
-      } else {
-        toast({
-          title: "Signup Failed",
-          description: data.message || "Unable to create account",
-          variant: "destructive",
-        });
-      }
-    },
-    onError: () => {
-      toast({
-        title: "Error",
-        description: "Something went wrong. Please try again.",
-        variant: "destructive",
-      });
-    },
-  });
+
 
   async function handleGoogleLogin() {
     setGoogleLoading(true);
+    setFormLoading(true);
     try {
       const provider = new GoogleAuthProvider();
       provider.setCustomParameters({
         prompt: "select_account"
       });
       const res = await signInWithPopup(auth, provider);
+      console.log("res", res);
+      
       if (res.user.email) {
-        toast({
-          title: "Google Login Successful",
-          description: `Welcome, ${res.user.email}`,
+        // Call Google signup API
+        const token = await res.user.getIdToken();
+        const signupData = {
+          token: token,
+          email: res.user.email,
+          name: res.user.displayName || res.user.email.split('@')[0],
+          accountType: "Salon"
+        };
+
+        const signupResponse = await fetch('/api/auth/account/signup/google', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(signupData),
         });
-        router.push("/");
+
+        const signupResult = await signupResponse.json();
+        console.log("Google signup response:", signupResult);
+
+        if (signupResponse.ok && signupResult.success) {
+          toast({
+            title: "Account Created Successfully",
+            description: `Welcome, ${res.user.email}`,
+          });
+          if (signupResult.generatedDomain && signupResult.token) {
+            window.location.href = 'https://' + signupResult.generatedDomain + '/login?token=' + signupResult.token;
+          } else {
+            router.push("/");
+          }
+        } else {
+          toast({
+            title: "Signup Failed",
+            description: signupResult.message || signupResult.error || "Unable to create account",
+            variant: "destructive",
+          });
+        }
       } else {
         toast({
           title: "Login Failed",
@@ -133,9 +160,11 @@ export default function Signup() {
       console.log("Unexpectedly closing google popup causes this error", error);
     }
     setGoogleLoading(false);
+    setFormLoading(false);
   }
 
   async function sendOtpToEmail(data: SignupData) {
+    setSendingOtp(true);
     try {
       const response = await fetch(`/api/auth/account/signup/otp?email=${data.email}`, {
         method: 'GET',
@@ -164,8 +193,43 @@ export default function Signup() {
         description: error instanceof Error ? error.message : "Failed to send OTP. Please try again.",
         variant: "destructive",
       });
+    } finally {
+      setSendingOtp(false);
     }
   }
+
+  const handleResendOtp = async () => {
+    if (!signupFormData) return;
+    
+    setResendLoading(true);
+    try {
+      const response = await fetch(`/api/auth/account/signup/otp?email=${signupFormData.email}`, {
+        method: 'GET',
+      });
+      const result = await response.json();
+      
+      if (result.success) {
+        toast({
+          title: "OTP Resent",
+          description: "A new OTP has been sent to your email.",
+        });
+      } else {
+        toast({
+          title: "OTP Request Failed",
+          description: result.message || result.error || "Unable to resend OTP. Please try again.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error('Error resending OTP:', error);
+      toast({
+        title: "Error",
+        description: "Failed to resend OTP. Please try again.",
+        variant: "destructive",
+      });
+    }
+    setResendLoading(false);
+  };
 
   const handleOtpSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -262,7 +326,15 @@ export default function Signup() {
       </div>
 
       {/* Right Section - Signup Form */}
-      <div className="w-full lg:w-1/2 bg-white h-screen overflow-y-auto">
+      <div className="w-full lg:w-1/2 bg-white h-screen overflow-y-auto relative">
+        {formLoading && (
+          <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center z-50">
+            <div className="flex flex-col items-center space-y-4">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+              <p className="text-gray-600 font-medium">Creating your account...</p>
+            </div>
+          </div>
+        )}
         <div className="px-8 pb-12">
           <div className="w-full max-w-md mx-auto">
             {/* Mobile Logo */}
@@ -320,7 +392,7 @@ export default function Signup() {
                               <FormLabel className="text-gray-700 font-medium">Full Name</FormLabel>
                               <FormControl>
                                 <div className="relative">
-                                  <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                                   <Input 
                                     placeholder="Enter your full name" 
                                     className="pl-10 h-12 border-gray-300 focus:border-purple-500 focus:ring-purple-500"
@@ -341,7 +413,7 @@ export default function Signup() {
                               <FormLabel className="text-gray-700 font-medium">Email Address</FormLabel>
                               <FormControl>
                                 <div className="relative">
-                                  <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                                   <Input 
                                     type="email" 
                                     placeholder="Enter your email" 
@@ -361,25 +433,44 @@ export default function Signup() {
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel className="text-gray-700 font-medium">Business Type</FormLabel>
-                              <Select onValueChange={field.onChange} defaultValue={field.value ?? ""}>
-                                <FormControl>
-                                  <div className="relative">
-                                    <Briefcase className="absolute left-3 top-3 h-4 w-4 text-gray-400 z-10" />
-                                    <SelectTrigger className="pl-10 h-12 border-gray-300 focus:border-purple-500 focus:ring-purple-500">
-                                      <SelectValue placeholder="Select your business type" />
-                                    </SelectTrigger>
-                                  </div>
-                                </FormControl>
-                                <SelectContent>
-                                  <SelectItem value="salon">Salon</SelectItem>
-                                  <SelectItem value="makeup_artist">Makeup Artist</SelectItem>
-                                  <SelectItem value="dermatologist">Dermatologist</SelectItem>
-                                  <SelectItem value="spa">Spa</SelectItem>
-                                  <SelectItem value="barber_shop">Barber Shop</SelectItem>
-                                  <SelectItem value="nail_salon">Nail Salon</SelectItem>
-                                  <SelectItem value="other">Other</SelectItem>
-                                </SelectContent>
-                              </Select>
+                              <FormControl>
+                                <DropdownMenu>
+                                  <DropdownMenuTrigger asChild>
+                                    <Button
+                                      variant="outline"
+                                      className="w-full h-12 border-gray-300 focus:border-purple-500 focus:ring-purple-500 justify-between pl-3 pr-3 hover:bg-gray-50 text-left"
+                                      type="button"
+                                    >
+                                      <div className="flex items-center">
+                                        <Briefcase className="h-4 w-4 text-gray-400 mr-3" />
+                                        <span className={field.value ? "text-gray-900" : "text-gray-500"}>
+                                          {field.value 
+                                            ? businessTypes.find(type => type.value === field.value)?.label 
+                                            : "Select your business type"
+                                          }
+                                        </span>
+                                      </div>
+                                      <ChevronDown className="h-4 w-4 text-gray-400" />
+                                    </Button>
+                                  </DropdownMenuTrigger>
+                                  <DropdownMenuContent 
+                                    className="w-[var(--radix-dropdown-menu-trigger-width)] min-w-[200px] max-h-[300px] overflow-y-auto bg-white border border-gray-200 shadow-lg rounded-md"
+                                    align="start"
+                                    sideOffset={4}
+                                    style={{ width: '100%' }}
+                                  >
+                                    {businessTypes.map((type) => (
+                                      <DropdownMenuItem
+                                        key={type.value}
+                                        onClick={() => field.onChange(type.value)}
+                                        className="cursor-pointer hover:bg-purple-50 focus:bg-purple-50 px-3 py-2 text-sm"
+                                      >
+                                        {type.label}
+                                      </DropdownMenuItem>
+                                    ))}
+                                  </DropdownMenuContent>
+                                </DropdownMenu>
+                              </FormControl>
                               <FormMessage />
                             </FormItem>
                           )}
@@ -393,7 +484,7 @@ export default function Signup() {
                               <FormLabel className="text-gray-700 font-medium">Password</FormLabel>
                               <FormControl>
                                 <div className="relative">
-                                  <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                                   <Input 
                                     type={showPassword ? "text" : "password"}
                                     placeholder="Create a secure password" 
@@ -402,7 +493,7 @@ export default function Signup() {
                                   />
                                   <button
                                     type="button"
-                                    className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
                                     onClick={() => setShowPassword(!showPassword)}
                                   >
                                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -422,7 +513,7 @@ export default function Signup() {
                               <FormLabel className="text-gray-700 font-medium">Confirm Password</FormLabel>
                               <FormControl>
                                 <div className="relative">
-                                  <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                                   <Input 
                                     type={showConfirmPassword ? "text" : "password"}
                                     placeholder="Confirm your password" 
@@ -431,7 +522,7 @@ export default function Signup() {
                                   />
                                   <button
                                     type="button"
-                                    className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
                                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                   >
                                     {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -447,27 +538,27 @@ export default function Signup() {
                           <input
                             id="terms"
                             type="checkbox"
-                            className="mt-1 h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+                            className="mt-0.5 h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
                             required
                           />
                           <label htmlFor="terms" className="text-sm text-gray-600 leading-5">
                             I agree to the{" "}
-                            <span className="text-purple-600 hover:text-purple-500 cursor-pointer font-medium">
+                            <Link href="/terms-of-service" className="text-purple-600 hover:text-purple-500 font-medium">
                               Terms of Service
-                            </span>{" "}
+                            </Link>{" "}
                             and{" "}
-                            <span className="text-purple-600 hover:text-purple-500 cursor-pointer font-medium">
+                            <Link href="/privacy-policy" className="text-purple-600 hover:text-purple-500 font-medium">
                               Privacy Policy
-                            </span>
+                            </Link>
                           </label>
                         </div>
 
                         <Button
                           type="submit"
                           className="w-full h-12 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
-                          disabled={signupMutation.isPending}
+                          disabled={sendingOtp}
                         >
-                          {signupMutation.isPending ? "Creating Account..." : "Create Account"}
+                          {sendingOtp ? "Sending OTP..." : "Send OTP"}
                         </Button>
 
                         <p className="text-center text-sm text-gray-500">
@@ -507,7 +598,9 @@ export default function Signup() {
                       otp={otp}
                       setOtp={setOtp}
                       onSubmit={handleOtpSubmit}
-                      loading={signupMutation.isPending}
+                      onResendOtp={handleResendOtp}
+                      loading={false}
+                      resendLoading={resendLoading}
                       label="Enter 6-digit OTP"
                       buttonText="Verify & Create Account"
                     />
