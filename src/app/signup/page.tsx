@@ -127,7 +127,7 @@ export default function Signup() {
         const signupResult = await signupResponse.json();
         console.log("Google signup response:", signupResult);
 
-        if (signupResponse.ok && signupResult.success) {
+        if (signupResponse.ok) {
           toast({
             title: "Account Created Successfully",
             description: `Welcome, ${res.user.email}`,
