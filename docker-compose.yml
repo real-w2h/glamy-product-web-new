@@ -1,0 +1,66 @@
+version: '3'
+services:
+  glamy-product-web-prod:
+    image: 864285225815.dkr.ecr.ap-south-1.amazonaws.com/glamy-product-web-prod:2025-07-17-01
+    ports:
+      - "3000:3000"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 800M
+        reservations:
+          cpus: '0.3'
+          memory: 600M
+
+  glamy-web-prod:
+    image: 864285225815.dkr.ecr.ap-south-1.amazonaws.com/glamy-web-prod:2025-07-17-00
+    ports:
+      - "3001:3000"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 800M
+        reservations:
+          cpus: '0.3'
+          memory: 600M
+
+  glamy-web-staging:
+    image: 864285225815.dkr.ecr.ap-south-1.amazonaws.com/glamy-web-staging:2025-07-17-00
+    ports:
+      - "8083:3000"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 800M
+        reservations:
+          cpus: '0.3'
+          memory: 600M
+
+  niralayouthfoundation-web-prod:
+    image: 864285225815.dkr.ecr.ap-south-1.amazonaws.com/niralayouthfoundation-web:2025-06-18-02
+    ports:
+      - "8001:3000"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 1000M
+        reservations:
+          cpus: '0.4'
+          memory: 800M
+
+  worldtravelpackholiday-web-prod:
+    image: 864285225815.dkr.ecr.ap-south-1.amazonaws.com/worldtravelpackholiday-web:2025-06-18-01
+    ports:
+      - "8002:3000"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 1000M
+        reservations:
+          cpus: '0.4'
+          memory: 800M

@@ -3,12 +3,14 @@
 import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import GradientScrollText from "@/components/GradientScrollText";
+// import SalonShowcaseSection from "@/components/SalonShowcaseSection";
 
 export default function Services() {
   const services = [
     {
-      title: "For Salons",
+      title: "Salons & Studios",
       icon: "✂️",
       description: "Streamline your salon operations with comprehensive appointment scheduling, staff management, and customer relationship tools.",
       features: ["Appointment management", "Staff scheduling", "Customer profiles"],
@@ -16,9 +18,10 @@ export default function Services() {
       borderColor: "border-purple-200",
       iconBg: "from-primary to-purple-600",
       buttonColor: "bg-primary hover:bg-purple-700",
+      link: "/salon-management"
     },
     {
-      title: "For Makeup Artists",
+      title: "Makeup Artists",
       icon: "🎨",
       description: "Grow your freelance business with lead tracking, booking management, and automated promotional campaigns.",
       features: ["Lead tracking", "Booking management", "Promotion campaigns"],
@@ -26,9 +29,10 @@ export default function Services() {
       borderColor: "border-pink-200",
       iconBg: "from-secondary to-pink-600",
       buttonColor: "bg-secondary hover:bg-pink-600",
+      link: "/clinic-management"
     },
     {
-      title: "For Dermatologists",
+      title: "Dermatologists",
       icon: "👨‍⚕️",
       description: "Enhance your practice with advanced patient management, clinic automation, and comprehensive reporting tools.",
       features: ["Patient management", "Clinic automation", "Advanced reporting"],
@@ -36,67 +40,54 @@ export default function Services() {
       borderColor: "border-blue-200",
       iconBg: "from-accent to-blue-600",
       buttonColor: "bg-accent hover:bg-blue-600",
+      link: "/dermatology"
     },
   ];
 
   return (
-    <section id="services" className="py-20 bg-white">
+    <section id="services" className="py-20 bg-gradient-to-r from-pink-50 via-purple-50 to-blue-50 mb-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div 
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <GradientScrollText
-            as="h2"
-            className="text-3xl lg:text-4xl font-bold mb-4"
-            variant="apple"
-            glow={true}
-          >
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-extrabold mb-2 bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
             Tailored Solutions for Every Beauty Professional
-          </GradientScrollText>
-          <GradientScrollText
-            as="p"
-            className="text-xl max-w-3xl mx-auto"
-            variant="purple"
-            glow={true}
-          >
-            Whether you run a salon, work as a makeup artist, or manage a dermatology clinic, Glame has the perfect solution for you.
-          </GradientScrollText>
-        </motion.div>
-
+          </h2>
+          <p className="text-xl text-purple-400 max-w-3xl mx-auto">
+            Whether you run a salon, work as a makeup artist, or manage a dermatology clinic, <span className="text-pink-500 font-semibold">Glame</span> has the perfect solution for you.
+          </p>
+        </div>
         <div className="grid md:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <motion.div
+          {services.map((service) => (
+            <div
               key={service.title}
-              className={`bg-gradient-to-br ${service.color} p-8 rounded-2xl hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border ${service.borderColor}`}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
-              viewport={{ once: true }}
+              className={`bg-white/80 p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col min-h-[420px]`}
             >
-              <div className={`w-16 h-16 bg-gradient-to-br ${service.iconBg} rounded-xl flex items-center justify-center mb-6`}>
-                <span className="text-white text-2xl">{service.icon}</span>
+              <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 text-3xl bg-gradient-to-br from-purple-100 to-pink-100">
+                <span>{service.icon}</span>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">{service.title}</h3>
-              <p className="text-gray-600 mb-6">{service.description}</p>
-              <ul className="space-y-3 mb-8">
+              <h3 className="text-xl font-bold text-gray-900 mb-3">{service.title}</h3>
+              <p className="text-gray-600 mb-5 text-base">{service.description}</p>
+              <ul className="space-y-2 mb-8">
                 {service.features.map((feature) => (
-                  <li key={feature} className="flex items-center text-gray-700">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-3" />
+                  <li key={feature} className="flex items-center text-gray-700 text-base">
+                    <span className="text-green-500 mr-2">✔️</span>
                     {feature}
                   </li>
                 ))}
               </ul>
-              <Button className={`w-full ${service.buttonColor} text-white transition-colors`}>
-                Learn More
-              </Button>
-            </motion.div>
+              <Link href={service.link} className="mt-auto">
+                <div className="text-sm font-semibold pt-2 cursor-pointer text-[#f6339a] hover:text-[#e91e63] transition-colors duration-200">
+                  Learn More →
+                </div>
+              </Link>
+            </div>
           ))}
         </div>
       </div>
+      
+      {/* Salon Showcase Section */}
+      {/* <SalonShowcaseSection /> */}
+
+
     </section>
   );
 }

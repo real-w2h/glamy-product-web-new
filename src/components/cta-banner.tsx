@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Rocket, Phone, Clock } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function CTABanner() {
   return (
@@ -34,20 +35,22 @@ export default function CTABanner() {
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
         >
-          <Button 
-            size="lg"
-            className="bg-white text-primary hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-          >
-            Start with Glame Today
-            <Rocket className="ml-2 h-4 w-4" />
-          </Button>
+          <Link href="/signup">
+            <Button 
+              size="lg"
+              className="bg-pink-500 hover:bg-pink-600 text-white hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 border-pink-500"
+            >
+              Start with Glame Today
+              <Rocket className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
           <Button 
             size="lg"
             variant="outline"
-            className="bg-white/20 backdrop-blur-sm text-white hover:bg-white/30 transition-colors border-white/30"
+            className="bg-white border-2 border-pink-500 text-pink-500 hover:bg-pink-50 transition-colors"
           >
             <Phone className="mr-2 h-4 w-4" />
-            Call Sales: (555) 123-4567
+            Call Sales: +91 9650833553
           </Button>
         </motion.div>
 
