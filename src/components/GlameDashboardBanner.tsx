@@ -39,7 +39,7 @@ export default function GlameDashboardBanner() {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-r from-pink-50 via-purple-50 to-blue-50">
+    <section className="pt-6 pb-20 bg-gradient-to-r from-pink-50 via-purple-50 to-blue-50" style={{ paddingTop: '25px' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
           className="text-center mb-16"

@@ -16,6 +16,7 @@ import BusinessReportSection from "@/components/BusinessReportSection";
 import GrowSalonSection from "@/components/GrowSalonSection";
 import ScrollTriggeredPopup from "@/components/ScrollTriggeredPopup";
 import MultiImageSlider from "../components/MultiImageSlider";
+import BusinessManagementSection from "@/components/BusinessManagementSection";
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-r from-pink-50 via-purple-50 to-blue-50">
@@ -24,6 +25,7 @@ export default function Home() {
       <div className="pt-16">
         <MultiImageSlider />
         <GlameDashboardBanner />
+        <BusinessManagementSection />
         {/* <FormSection /> */}
         {/* <BusinessReportSection /> */}
         {/* Banner Section Alignment Fix ko hata diya */}
